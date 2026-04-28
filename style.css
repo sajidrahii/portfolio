@@ -1,0 +1,681 @@
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Bungee+Spice&family=Google+Sans+Code:ital,wght,MONO@0,300..800,1;1,300..800,1&family=Limelight&family=Mogra&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Bungee+Spice&family=Edu+NSW+ACT+Cursive:wght@400..700&family=Google+Sans+Code:ital,wght,MONO@0,300..800,1;1,300..800,1&family=Limelight&family=Mogra&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Bungee+Spice&family=Changa+One:ital@0;1&family=Edu+NSW+ACT+Cursive:wght@400..700&family=Google+Sans+Code:ital,wght,MONO@0,300..800,1;1,300..800,1&family=Limelight&family=Mogra&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root{
+    --primary-base-color: #03060d;
+    --seconday-base-color: #0d0803; 
+    --primary-highlight-color: #ff9933;
+    --secodary-highlight-color: #3377ff;
+
+    /* GRADIENT */
+    --grad-primary: #ffffff;
+    --grad-secondary: #999999;
+    --grad-tertiary: #ff9933;
+
+    --primary-text: #f2f2f2;
+    --secondary-text: #cccccc;
+
+    --card-border: #f2f2f2;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: var(--primary-base-color);
+
+    overflow: auto;
+}
+
+/* ELEMENTS */
+.elements{
+    position: relative;
+}
+
+.asteroid{
+    z-index: -999;
+    height: 250px;
+    width: 200px;
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    object-fit: cover;
+
+    /* background: red; */
+
+    overflow: hidden;
+}
+
+.asteroid img{
+    height: 250px;
+
+    position: fixed;
+    top: 0;
+    right: -600px;
+
+    rotate: 5deg;
+
+    animation: top-right-to-bottom-left 3s ease-in-out;
+}
+
+.stars img{
+    z-index: -9999;
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+
+    filter: brightness(0.1);
+}
+
+.suncolor img{
+    z-index: -1000;
+    position: absolute;
+    top: -30px;
+    left: 0;
+
+    height: 100vh;
+    width: 100%;
+
+    mix-blend-mode: screen;
+}
+
+.earthcolor img{
+    z-index: -1000;
+    position: absolute;
+    top: 80vh;
+    left: 0;
+
+    height: 100vh;
+    width: 100%;
+
+    mix-blend-mode: screen;
+}
+
+.flying-robot img{
+    z-index: -999;
+    position: absolute;
+    top: 30vh;
+    left: 25vw;
+
+    height: 250px;
+
+    animation: floating 3s ease-in-out infinite;
+}
+
+.flying-robot-2 img{
+    z-index: -999;
+    position: absolute;
+    top: 55vh;
+    right: 30vw;
+
+    height: 150px;
+
+    filter: blur(1px);
+
+    animation: floating-2 3s ease-in-out infinite;
+}
+
+.flying-robot-3 img{
+    z-index: -999;
+    position: fixed;
+    top: 20vh;
+    right: 10vw;
+
+    height: 100px;
+
+    filter: blur(2px);
+
+    animation: floating-3 3s ease-in-out infinite;
+}
+
+.flying-robot-4 img{
+    z-index: -999;
+    position: fixed;
+    top: 70vh;
+    left: 5vw;
+
+    height: 100px;
+
+    filter: blur(3px);
+
+    animation: floating-3 3s ease-in-out infinite;
+}
+
+button{
+    height: 30px;
+    width: 80px;
+
+    border: 1px solid var(--card-border);
+    border-radius: 0.8rem;
+    background: transparent;
+
+    font-size: 9pt;
+    font-weight: 400;
+    color: var(--primary-text);
+
+    box-shadow: 0px 0px 20px var(--primary-base-color), inset 0 0 10px var(--primary-text);
+}
+
+button:hover{
+    scale: 1.05;
+    cursor: not-allowed;
+
+    background: var(--secodary-highlight-color);
+}
+
+.title-text{
+    font-size: 5rem;
+    font-family: 'Changa One', serif;
+    color: var(--secodary-highlight-color);
+    letter-spacing: 0.5rem;
+}
+
+header{
+    /* background: green; */
+
+    margin-top: 2vh;
+    height: 100px;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header{
+    /* background: red; */
+    z-index: 9999;
+
+    height: 10%;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 1rem;
+    position: fixed;
+
+    /* This creates the blur effect behind the div */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Required for Safari */
+}
+
+header img{
+    height: 50px;
+}
+
+header nav{
+    display: flex;
+    gap: 2rem;
+}
+
+header nav a{
+    font-family: sans-serif;
+    font-size: 1rem;
+    text-decoration: none;
+    color: var(--primary-text);
+}
+
+header nav a:hover{
+    scale: 1.1;
+    color: var(--secondary-text);
+}
+
+.intro-holder{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 2vh;
+}
+
+.intro-holder img{
+    height: 550px;
+
+    animation: 
+    fly-up 2s ease forwards, 
+    floating-2 4s ease-in-out 2s infinite;
+}
+
+.intro-holder #secondary-title{
+    font-size: 64pt;
+    z-index: -10;
+
+    position: absolute;
+    top: 120px;
+
+    color: var(--secondary-text);
+
+    font-family: 'Edu NSW ACT Cursive', serif;
+    letter-spacing: 1rem;
+
+    /* 1. Define the gradient */
+    background: radial-gradient(circle, var(--grad-primary),var(--grad-secondary) , var(--grad-tertiary));
+    
+    /* 2. Clip the background to the text characters */
+    -webkit-background-clip: text;
+    background-clip: text;
+    
+    /* 3. Make the actual text color transparent so the background shows through */
+    -webkit-text-fill-color: transparent;
+
+    animation: scale-up 0.8s ease-in-out;
+}
+
+.intro-holder #primary-title{
+    font-size: 72pt;
+
+    position: absolute;
+    top: 600px;
+
+    color: var(--secondary-text);
+
+    font-family: 'Changa One', serif;
+    letter-spacing: 1rem;
+
+    /* 1. Define the gradient */
+    background: radial-gradient(circle, var(--grad-primary),var(--grad-secondary) , var(--grad-tertiary));
+    
+    /* 2. Clip the background to the text characters */
+    -webkit-background-clip: text;
+    background-clip: text;
+    
+    /* 3. Make the actual text color transparent so the background shows through */
+    -webkit-text-fill-color: transparent;
+
+    animation: scale-up 1s ease-in-out;
+
+}
+
+.intro-holder p{
+    font-size: 14pt;
+
+    position: absolute;
+    top: 590px;
+
+    color: var(--secondary-text);
+
+    font-family: sans-serif;
+    font-style: italic;
+
+    animation: scale-up 2.2s ease-in-out;
+}
+
+.intro-holder #tertiary-title{
+    z-index: 1000;
+
+    font-size: 18pt;
+    margin-top: 0.8rem;
+    font-family: sans-serif;
+
+    color: var(--secondary-text);
+    
+    letter-spacing: 0.5rem;
+
+    /* 1. Define the gradient */
+    background: radial-gradient(circle, var(--grad-primary),var(--grad-secondary) , var(--grad-tertiary));
+    
+    /* 2. Clip the background to the text characters */
+    -webkit-background-clip: text;
+    background-clip: text;
+    
+    /* 3. Make the actual text color transparent so the background shows through */
+    -webkit-text-fill-color: transparent;
+
+    animation: scale-up 1.4s ease-in-out;
+
+    overflow: hidden; /* Hides characters */
+    /* border-right: .15em solid orange;  The blinking cursor */
+    white-space: nowrap; /* Keeps text on one line */
+    margin: 0 auto; 
+    letter-spacing: .15em; 
+    /* steps(20) should match your character count */
+    animation: typing 4s steps(100, end) 2s infinite;
+}
+
+.social-media{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.8rem;
+    gap: 1rem;
+}
+
+.social-media img{
+    height: 30px;
+
+    transition: 0.5s ease-in-out;
+}
+
+.social-media img:nth-child(1){
+    animation: scale-up 3s ease-in-out;
+}
+
+.social-media img:hover{
+    scale: 1.1;
+    transform: translateY(-0.2rem);
+}
+
+
+/* PAGE-2 */
+.my-3d-model{
+    /* REQUIRED FOR NEW PAGE */
+    scroll-snap-type: y mandatory;
+}
+
+#skill-section{
+    scroll-snap-align: start; /* REQUIRED FOR NEW PAGE */
+
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 15vh;
+    padding-left: 20vw;
+    padding-right: 20vw;
+
+    animation: 
+    scale-up 3s ease-in-out forwards;
+    animation-timeline: view();
+    animation-range: 0% entry;
+}
+
+.my-flying-model img{
+    height: 80vh;
+    z-index: 10;
+    /* position: absolute;
+
+    top: 20vh;
+    right: 20vw; */
+
+
+    animation: 
+    scale-up 2s ease forwards,
+    floating 4s ease-in-out 2s infinite;
+}
+
+.skills{
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 2rem;
+
+    padding-bottom: 20vh;
+
+    /* background: red; */
+}
+
+#skill-section .skills h1{
+    font-family: 'Bungee Spice';
+    /* animation: typing 4s steps(100, end) forwards; */
+}
+
+.skill-part{
+    display: flex;
+    gap: 2rem;
+}
+
+.skills .skill-card{
+    /* background: red; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    width: 100px;
+
+    border: 1px solid var(--secodary-highlight-color);
+    border-radius: 1rem;
+
+    box-shadow: 0px 0px 20px var(--primary-base-color), inset 0 0 10px var(--primary-text);
+
+    animation: 
+    scale-up 3s ease-in-out forwards,
+    floating 4s ease-in-out infinite;
+
+}
+
+.skill-card:hover{
+    cursor: pointer;
+}
+
+.skills .skill-card img{
+    height: 80px;
+
+    animation: floating-2 3s ease-in-out infinite;
+
+    transition: 0.5s ease-in-out;
+}
+
+.skills .skill-card img:hover{
+    scale: 1.1;
+}
+
+/* PAGE - 3 */
+.project-holder{
+    /* REQUIRED FOR NEW PAGE */
+    scroll-snap-type: y mandatory;
+}
+
+#project-section{
+    scroll-snap-align: start; /* REQUIRED FOR NEW PAGE */
+
+    height: 100vh;
+}
+
+.project-holder{
+    position: absolute;
+
+    height: 100%;
+    width: 100%;
+    z-index: 1000;
+
+    animation: 
+    scale-up 3s ease-in-out forwards;
+    animation-timeline: view();
+    animation-range: 0% entry;
+
+}
+
+.project-cards{
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 1rem;
+
+}
+
+.project-card-part{
+    display: flex;
+
+    gap: 1rem;
+}
+
+.project-card-part h1{
+    font-size: 1.5rem;
+    font-family:'Bungee Spice';
+}
+
+.project-single-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    height: 300px;
+    width: 430px;
+
+    border: 1px solid var(--secodary-highlight-color);
+    border-radius: 1rem;
+
+    box-shadow: 0px 0px 20px var(--primary-base-color), inset 0 0 10px var(--primary-text);
+
+    /* animation: floating 5s ease-in-out infinite; */
+
+    object-fit: cover;
+
+    transition: 0.5s ease-in-out;
+}
+
+.project-single-card:hover{
+    scale: 1.05;
+
+    cursor: pointer;
+}
+
+#project-section .project-holder .project-cards .project-single-card img{
+    height: 180px;
+
+    animation: floating-3 5s ease-in-out infinite;
+}
+
+.earthcolor-for-project-section img{
+    z-index: -1000;
+
+    height: 100vh;
+    width: 100%;
+
+
+    transform: rotate(180deg);
+}
+
+#project-section-title{
+    font-family: 'Bungee Spice';
+}
+
+/* RECOGNITION SECTION */
+.recog-holder{
+    /* REQUIRED FOR NEW PAGE */
+    scroll-snap-type: y mandatory;
+}
+
+#recog-section{
+    scroll-snap-align: start; /* REQUIRED FOR NEW PAGE */
+
+    height: 100vh;
+}
+
+.suncolor-for-recog-section img{
+    z-index: -1000;
+
+    height: 100vh;
+    width: 100%;
+
+    transform: rotate(180deg);
+}
+
+.recog-holder{
+    position: absolute;
+
+    height: 100%;
+    width: 100%;
+    z-index: 1000;
+
+    animation: 
+    scale-up 3s ease-in-out forwards;
+    animation-timeline: view();
+    animation-range: 0% entry;
+}
+
+.recog-cards{
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 1rem;
+
+}
+
+.recog-card-part{
+    display: flex;
+
+    gap: 1rem;
+}
+
+.recog-card-part h1{
+    font-size: 1.5rem;
+    font-family:'Bungee Spice';
+}
+
+.recog-single-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    height: 280px;
+    width: 380px;
+
+    border: 1px solid var(--primary-highlight-color);
+    border-radius: 1rem;
+
+    box-shadow: 0px 0px 20px var(--primary-base-color), inset 0 0 10px var(--primary-text);
+
+    /* animation: floating 5s ease-in-out infinite; */
+
+    object-fit: cover;
+
+    transition: 1s ease-in-out;
+
+    animation: 
+    scale-up 3s ease-in-out forwards,
+    floating 4s ease-in-out infinite;
+}
+
+.recog-single-card:hover{
+    scale: 1.1;
+
+    cursor: pointer;
+}
+
+.recog-single-card h1{
+    font-size: 12pt;
+
+    font-family: 'Roboto';
+    color: var(--primary-highlight-color);
+    text-transform: capitalize;
+}
+
+#recog-section .recog-holder .recog-cards .recog-single-card img{
+    height: 180px;
+
+    transition: 0.5s all ease-in-out;
+    animation: floating-3 5s ease-in-out infinite;
+}
+
+#recog-section .recog-holder .recog-cards .recog-single-card img:hover{
+    scale: 2;
+    z-index: 1000;
+    animation: none;
+}
+
+#recog-section-title{
+    font-family: 'Bungee Spice';
+    font-size: 24pt;
+    color: var(--primary-highlight-color);
+}

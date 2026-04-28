@@ -1,0 +1,122 @@
+@keyframes scale-up{
+    0%{
+        opacity: 0;
+        scale: 0;
+    }
+    50%{
+        opacity: 0.5;
+        scale: 1.2;
+    }
+    100%{
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+@keyframes fly-up{
+    0%{
+        transform: translateY(1000vh);
+        opacity: 0;
+        rotate: -5deg;
+    }
+    50%{
+        transform: translateY(-10vh);
+        opacity: 0.25;
+        rotate: -2deg;
+    }
+    100%{
+        transform: translateY(0);
+        opacity: 1;
+        rotate: 0;
+    }
+}
+
+@keyframes beat {
+    0% {
+        transform: scale(100%);
+    }
+
+    50% {
+        transform: scale(125%); 
+    }
+
+    100% {
+        transform: scale(100%);
+    }
+}
+
+@keyframes floating{
+    0% {
+        transform: rotate(0) translateY(0);
+    }
+
+    50% {
+        transform: rotate(2deg) translateY(2vh);
+    }
+
+    100% {
+        transform: rotate(0) translateY(0);
+    }
+}
+
+@keyframes floating-2{
+    0% {
+        transform: rotate(0) translateY(0);
+    }
+
+    50% {
+        transform: rotate(-2deg) translateY(1vh);
+    }
+
+    100% {
+        transform: rotate(0) translateY(0);
+    }
+}
+
+@keyframes floating-3{
+    0% {
+        transform: rotate(0) translateY(0);
+    }
+
+    50% {
+        transform: rotate(5deg) translateY(1vh);
+    }
+
+    100% {
+        transform: rotate(0) translateY(0);
+    }
+}
+
+@keyframes top-right-to-bottom-left {
+    0% {
+        transform: translate(100, 100);
+    }
+
+    100% {
+         transform: translate(-120vw, 100vh);
+    }
+}
+
+/* Reveal text from 0 to full width */
+@keyframes typing {
+    0% { width: 0 }
+    50% { width: 60vw }
+    100% {width: 60vw}
+}
+
+/* Cursor blinking effect */
+/* @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: orange; }
+} */
+
+@keyframes reveal{
+    from{width: 0;}
+    to{width: 50vw;}
+}
+
+@keyframes typing-onGoing {
+    0% { width: 0 }
+    50% { width: 60vw }
+    100% {width: 0}
+}
