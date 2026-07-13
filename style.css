@@ -314,7 +314,7 @@ header{
 }
 
 .introright img{
-    height: 500px;
+    height: 550px;
 
     transition: 0.6s;
 }
@@ -496,7 +496,14 @@ header{
 }
 
 .aboutmeleft img{
-    height: 600px;
+    height: 550px;
+
+    transition: 0.6s;
+}
+
+.aboutmeleft img:hover{
+    scale: 1.1;
+    cursor: none;
 }
 
 #aboutmeire{
