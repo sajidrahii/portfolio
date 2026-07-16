@@ -6,6 +6,7 @@
     <title>Sajid Rahi | IoT & Robo. Eng.</title>
 
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="animations.css">
 </head>
 <body>
     <section>
@@ -15,7 +16,7 @@
 
         <div class="grid"></div>
     </section>
-
+ 
     <section id="header">
         <header>
             <div class="headleft">
@@ -24,7 +25,7 @@
 
             <div class="navbar">
                 <a href="index.html#introduction">Introduction</a>
-                <a href="">Work</a>
+                <a href="">Works</a>
                 <a href="">Skills</a>
                 <a href="index.html#certification">Certifications</a>
                 <a href="index.html#story">Story</a>
@@ -41,13 +42,14 @@
         </header>
     </section>
 
-    <section id="introduction">
+    <section id="introduction" class="jsanimate">
         <div class="intro">
             <div class="introleft">
                 <p>IoT & Robotics Engineer . Embedded System Designer</p>
+                <p>Intermediate Video Editor & Graphic Designer</p>
 
-                <h1>Hi, I'm</h1>
-                <h1 id="myname">SAJID RAHI</h1>
+                <h1 class="heading-animate">Hi, I'm</h1>
+                <h1 class="heading-animate" id="myname">SAJID RAHI</h1>
 
                 <p id="whatido">I design Embedded systems that solve Real-World problems <br>
                 combining IoT and Robotics...
@@ -65,15 +67,15 @@
                 </div>
             </div>
 
-            <div class="introright">
+            <div class="hero-image">
                 <img src="assets/PDP03.png" alt="">
             </div>
         </div>
     </section>
 
-    <section id="about-me">
+    <section id="about-me" class="jsanimate">
         <div class="aboutme">
-            <div class="aboutmeleft"><img src="assets/PDP01.png" alt=""></div>
+            <div class="hero-image"><img src="assets/PDP01.png" alt=""></div>
 
             <hr class="vrline"></hr>
 
@@ -83,12 +85,12 @@
                 </div>
 
                 <div class="universal-heading">
-                    <h1 id="aboutmeire">
+                    <h1 class="heading-animate" id="aboutmeire">
                         An IoT & <br> 
                         Robotics <br>
                     </h1>
-                    <h1 id="engtext">Engineering</h1>
-                    <h1>
+                    <h1 class="heading-animate" id="engtext">Engineering</h1>
+                    <h1 class="heading-animate">
                         Student <br>
                         Thirsty for <br>
                         Knowledge
@@ -113,18 +115,97 @@
         </div>
     </section>
 
-    <section id="certification">
+    <section id="skills" class="jsanimate">
+        <div class="text-section-heading">
+            <p>CAPABILITIES</p>
+        </div>
+        
+        <div class="universal-heading" id="section-heading">
+            <h1>
+                IoT & Robotics Engineering <br>
+                Embedded System Designing <br>
+                Motion Graphics & <br>
+                Graphic Designing 
+            </h1>
+            <a href="#">View CV</a>
+        </div>
+
+        <div class="cardholder">
+            <div class="card">
+                <div class="universal-card-texts">
+                    <h1>Development</h1>
+                    <div class="universal-card-points">
+                        <h5>Python</h5>
+                        <h5>C++</h5>
+                        <h5>JavaScript</h5>
+                    </div>
+                    <div class="universal-card-points">
+                        <h5>HTML5</h5>
+                        <h5>CSS3</h5>
+                    </div>
+                </div> 
+            </div>
+
+            <div class="card">
+                <div class="universal-card-texts">
+                    <h1>IoT & Robotics</h1>
+                    <div class="universal-card-points">
+                        <h5>Embedded Systems Engineering</h5>
+                    </div>
+                    <div class="universal-card-points">
+                        <h5>System Design Architecture</h5>
+                    </div>
+                </div> 
+            </div>
+
+            <div class="card">
+                <div class="universal-card-texts">
+                    <h1>Professional</h1>
+                    <div class="universal-card-points">
+                        <h5>Leadership</h5>
+                        <h5>Communication</h5>
+                    </div>
+                    <div class="universal-card-points">
+                        <h5>Team Collaboration</h5>
+                        <h5>Content Writing</h5>
+                    </div>
+                </div> 
+            </div>
+        </div>
+
+        <div class="cardholder">
+            <div class="card">
+                <div class="universal-card-texts">
+                    <h1>Tools</h1>
+                    <div class="universal-card-points">
+                        <h5>Git</h5>
+                        <h5>GitHub</h5>
+                        <h5>VS Code</h5>
+                        <h5>MySQL</h5>
+                    </div>
+                    <div class="universal-card-points">
+                        <h5>Adobe Ae</h5>
+                        <h5>Adobe Pr</h5>
+                        <h5>Adobe Ps</h5>
+                    </div>
+                </div> 
+            </div>
+        </div>
+
+    </section>
+
+    <section id="certification" class="jsanimate">
         <div class="text-section-heading">
             <p>CERTIFICATIONS</p>
         </div>
         
-        <div class="universal-heading" id="cert-heading">
+        <div class="universal-heading" id="section-heading">
             <h1>Proof of Practice</h1>
             <a href="#">View CV</a>
         </div>
 
-        <div class="certcardholder">
-            <div class="certcard">
+        <div class="cardholder">
+            <div class="card">
                 <div class="certimgholder"><img src="assets/achievements/Wadhwani-Foundation-Certificate.jpg" alt=""></div>
 
                 <div class="universal-card-texts">
@@ -139,7 +220,7 @@
                 </div>
             </div>
 
-            <div class="certcard">
+            <div class="card">
                 <div class="certimgholder"><img src="assets/achievements/DataCanvas Poster Competition_SUB Computing Club.jpeg" alt=""></div>
 
                 <div class="universal-card-texts">
@@ -154,7 +235,7 @@
                 </div>
             </div>
 
-            <div class="certcard">
+            <div class="card">
                 <div class="certimgholder"><img src="assets/achievements/Robotics Camp 1st-stage.jpg" alt=""></div>
 
                 <div class="universal-card-texts">
@@ -170,8 +251,8 @@
             </div>
         </div>
 
-        <div class="certcardholder">
-            <div class="certcard">
+        <div class="cardholder">
+            <div class="card">
                 <div class="certimgholder"><img src="assets/achievements/DOT_Photography.jpg" alt=""></div>
 
                 <div class="universal-card-texts">
@@ -186,7 +267,7 @@
                 </div>
             </div>
 
-            <div class="certcard">
+            <div class="card">
                 <div class="certimgholder"><img src="assets/achievements/sajid_ahmed_rahi_cyber_hygiene_119749_page-0001.jpg" alt=""></div>
 
                 <div class="universal-card-texts">
@@ -204,8 +285,8 @@
 
     </section>
 
-    <section id="story">
-        <div class="storyleft">
+    <section id="story" class="jsanimate">
+        <div class="story-card-holder" id="storyleft">
             <h4>EDUCATION</h4>
 
             <div class="storycard">
@@ -236,43 +317,51 @@
             </div>
         </div>
 
-        <div class="storyleft">
+        <div class="hero-image">
+            <img src="assets/PDP02.png" alt="">
+        </div>
+
+        <div class="story-card-holder" id="storyright">
             <h4>LEADERSHIP & CREDENTIALS</h4>
 
             <div class="storycard">
-                <div class="storylefticon"><img src="assets/icons/badge.png" alt=""></div>
                 <div class="storyleftpara">
                     <h1>UFTB Robotics Club</h1>
                     <h2>Deputy Publication Secretary</h2>
                     <h3>2024 - Present</h3>
                 </div>
+
+                <div class="storylefticon"><img src="assets/icons/badge.png" alt=""></div>
             </div>
 
             <div class="storycard">
-                <div class="storylefticon"><img src="assets/icons/badge.png" alt=""></div>
                 <div class="storyleftpara">
                     <h1>UFTB Project Archive (Students Community)</h1>
                     <h2>Founder & CEO</h2>
                     <h3>2026 - Present</h3>
                 </div>
+
+                <div class="storylefticon"><img src="assets/icons/badge.png" alt=""></div>
             </div>
 
             <div class="storycard">
-                <div class="storylefticon"><img src="assets/icons/art.png" alt=""></div>
                 <div class="storyleftpara">
                     <h1>PiXimpressive (Photographers Community)</h1>
                     <h2>Owner & CEO</h2>
                     <h3>2020 - Present</h3>
                 </div>
+
+                <div class="storylefticon"><img src="assets/icons/art.png" alt=""></div>
             </div>
 
             <div class="storycard">
-                <div class="storylefticon"><img src="assets/icons/sport.png" alt=""></div>
                 <div class="storyleftpara">
                     <h1>Hili Pilotian Batch 2020 (Sports Team)</h1>
                     <h2>Media & Publication Secretary</h2>
                     <h3>2020 - Present</h3>
                 </div>
+
+                <div class="storylefticon"><img src="assets/icons/sport.png" alt=""></div>
             </div>
             
         </div>

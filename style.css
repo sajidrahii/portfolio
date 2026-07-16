@@ -44,9 +44,15 @@
     --yellow-border: 1px solid hsl(50, 80%, 50%);
 
     --card-texts: Mozilla Text;
+    --p-font: JetBrains Mono;
+    --button-font: JetBrains Mono;
+
+    --p-font-size: 10pt;
 
     --purple-outer-glow: 0 0 20px 0 hsl(275, 65%, 50%);
     --yellow-outer-glow: 0 0 20px 0 hsl(50, 80%, 50%);
+
+    --hero-image-size: 500px;
 }     
 
 html{
@@ -67,6 +73,34 @@ body{
     background-repeat: no-repeat;
 }
 
+/* The starting hidden state */
+.jsanimate {
+  opacity: 0;
+  scale: 0;
+  transform: translateY(40px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+  will-change: opacity, transform; /* Optimizes browser rendering performance */
+}
+
+/* The active visible state triggered by JS */
+.jsanimate.is-visible {
+  opacity: 1;
+  scale: 1;
+  transform: translateY(0);
+}
+
+.heading-animate.is-visible{
+    animation: pop 1s ease-in-out;
+}
+
+.btn.is-visible{
+    animation: bounce 1.5s ease-in-out;
+}
+
+.card.is-visible{
+    animation: bounce 1.5s ease-in-out;
+}
+
 h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, p:hover{
     cursor: default;
 }
@@ -78,7 +112,7 @@ button{
     background-color: var(--highlight-yellow);
     transition: 0.6s;
 
-    font-family: JetBrains Mono;
+    font-family: var(--button-font);
 }
 
 button:hover{
@@ -117,22 +151,25 @@ button:hover{
   z-index: 9999; 
 }
 
-/* .grid{
-    background-image: url(assets/grid.png);
-    height: 100vh;
-    width: 100vw;
-
-    position: fixed;
-    top: 0;
-    z-index: -9999;
-} */
-
 /* COMMON */
+.hero-image img{
+    height: var(--hero-image-size);
+
+    transition: 0.6s;
+}
+
+.hero-image img:hover{
+    scale: 1.1;
+    cursor: none;
+}
+
 .text-section-heading p{
     font-family: sans-serif;
     color: var(--highlight-yellow);
-    font-size: 10pt;
+    font-size: var(--p-font-size);
     margin-bottom: 1vh;
+
+    letter-spacing: 3pt;
 }
 
 .universal-card-texts{
@@ -168,6 +205,19 @@ button:hover{
     text-align: center;
 }
 
+.universal-card-points{
+    display: flex;
+    flex-direction: row;
+
+    gap: 0.5vw;
+}
+
+.universal-card-points h5{
+    color: var(--secondary-text);
+    font-size: 9pt;
+    width: auto;
+}
+
 .universal-heading h1{
     font-size: 40pt;
     color: var(--main-text);
@@ -175,6 +225,72 @@ button:hover{
     letter-spacing: 4pt;
     line-height: 40pt;
 }
+
+.cardholder{
+    display: flex;
+    flex-direction: row;
+    gap: 1vw;
+}
+
+.card{
+    padding: 2vh;
+
+    height: 400px;
+    width: 350px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: left;
+    gap: 1vh;
+
+    border: var(--border);
+    border-radius: 20px;
+
+    transition: 0.6s;
+}
+
+.card:hover{
+    scale: 1.05;
+    transform: translateY(-2px);
+
+    box-shadow: var(--purple-outer-glow);
+    border: var(--yellow-border);
+}
+
+
+#section-heading{
+    display: flex;
+    align-items: center;
+
+    gap: 2vw;
+}
+
+#section-heading a{
+    text-decoration: none;
+
+    border: var(--white-border);
+    border-radius: 10px;
+
+    width: 80px;
+    height: 30px;
+    padding-top: 5px;
+    text-align: center;
+
+    font-family: var(--card-texts);
+    font-size: 10pt;
+    color: var(--secondary-text);
+
+    transition: 0.6s;
+}
+
+#section-heading a:hover{
+    scale: 1.05;
+    transform: translateY(-2px);
+
+    background: var(--holder-base-color);
+}
+
 
 /* COMMON ^ */
 
@@ -191,6 +307,8 @@ button:hover{
     backdrop-filter: blur(10px);
 
     border-radius: 10px;
+
+    z-index: 9999;
 }
 
 header{
@@ -217,8 +335,8 @@ header{
 }
 
 .navbar a{
-    font-size: 10pt;
-    font-family: Mozilla Text;
+    font-size: var(--p-font-size);
+    font-family: var(--card-texts);
     text-decoration: none;
     color: var(--tertiary-text);
     letter-spacing: 1pt;
@@ -276,15 +394,15 @@ header{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 3vh;
+    gap: 2vh;
 }
 
 .introleft p{
     color: var(--highlight-yellow);
     /* font-family: Atkinson Hyperlegible; */
-    font-family: JetBrains Mono;
+    font-family: var(--p-font);
     letter-spacing: 1pt;
-    font-size:12pt;
+    font-size: var(--p-font-size);
 
     transition: 0.6s;
 }
@@ -313,16 +431,6 @@ header{
     letter-spacing: 1pt;
 }
 
-.introright img{
-    height: 550px;
-
-    transition: 0.6s;
-}
-
-.introright img:hover{
-    scale: 1.1;
-    cursor: none;
-}
 
 #whatido{
     color: var(--tertiary-text);
@@ -350,6 +458,27 @@ header{
     border: var(--purple-border);
 }
 
+/* SKILL SECTION */
+#skills{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2vh;
+
+    scroll-margin-top: 20vh;
+    margin: 50vh;
+}
+
+#skills .card{
+    height: 160px;
+    width: 320px;
+
+    justify-content: start;
+}
+
+/* SKILL SECTION */
+
 /* CERTIFICATION */
 #certification{
     /* background: red; */
@@ -363,65 +492,6 @@ header{
     scroll-margin-top: 20vh;
 }
 
-#cert-heading{
-    display: flex;
-    align-items: center;
-
-    gap: 2vw;
-}
-
-#cert-heading a{
-    text-decoration: none;
-
-    border: var(--white-border);
-    border-radius: 10px;
-
-    width: 80px;
-    height: 30px;
-    padding-top: 5px;
-    text-align: center;
-
-    font-family: var(--card-texts);
-    font-size: 10pt;
-    color: var(--secondary-text);
-
-    transition: 0.6s;
-}
-
-#cert-heading a:hover{
-    scale: 1.05;
-    transform: translateY(-2px);
-
-    background: var(--holder-base-color);
-}
-
-.certcard{
-    padding: 2vh;
-    height: 400px;
-    width: 350px;
-
-    border: var(--border);
-    border-radius: 20px;
-
-    /* background: red; */
-
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: left;
-    gap: 1vh;
-
-    transition: 0.6s;
-}
-
-.certcard:hover{
-    scale: 1.05;
-    background-color: var(--holder-base-color);
-    transform: translateY(-2px);
-
-    box-shadow: var(--purple-outer-glow);
-    border: var(--yellow-border);
-}
 
 .certimgholder{
     /* background: blue; */
@@ -460,12 +530,6 @@ header{
     height: 15px;
 }
 
-.certcardholder{
-    display: flex;
-    flex-direction: row;
-    gap: 1vw;
-}
-
 /* CERTIFICATION ^ */
 
 /* ABOUT ME SECTION */
@@ -495,17 +559,6 @@ header{
     height: 500px;
 }
 
-.aboutmeleft img{
-    height: 550px;
-
-    transition: 0.6s;
-}
-
-.aboutmeleft img:hover{
-    scale: 1.1;
-    cursor: none;
-}
-
 #aboutmeire{
     color: var(--text-blue);
     letter-spacing: 4pt;
@@ -517,7 +570,7 @@ header{
 
 #my-bio{
     font-family: var(--card-texts);
-    font-size: 12pt;
+    font-size: var(--p-font-size);
     color: var(--tertiary-text); 
 }
 
@@ -534,43 +587,41 @@ header{
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 2vw;
+    gap: 1vw;
 
     /* background: red; */
 }
 
-.storyleft{
+.story-card-holder{
     display: flex;
     flex-direction: column;
     gap: 2vh;
 }
 
-.storyleft .storycard{
+.story-card-holder .storycard{
     background: transparent;
     height: 120px;
-    width: 600px;
-
-    border-radius: 20px;
+    width: 550px;
 
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: left;
     padding-left: 2vw;
+    
     gap: 1vw;
 
-    border: var(--border);
-    
     transition: 0.6s;
 }
 
-.storyleft .storycard:hover{
+.story-card-holder .storycard:hover{
     background: var(--holder-base-color);
     cursor: none;
     scale: 1.05;
     transform: translateY(-10px);
 
     border: var(--yellow-border);
+    border-radius: 30px;
 }
 
 #story h4{
@@ -594,4 +645,16 @@ header{
 #story h3{
     font-size: 10pt;
     color: var(--tertiary-text);
+}
+
+#storyright h1, #storyright h2, #storyright h3, #storyright h4, #storyright h5{
+    text-align: right;
+}
+
+#storyright .storycard{
+    justify-content: right;
+}
+
+.story-img img{
+    height: var(--hero-image-size);
 }

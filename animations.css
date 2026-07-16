@@ -1,0 +1,26 @@
+@keyframes pop{
+    0%{
+        scale: 0;
+        transform: translateX(10vw);
+    }
+    50%{
+        scale: 1.2;
+        transform: translateX(5vw);
+    }
+    100%{
+        transform: translateX(0);
+        scale: 1;
+    }
+}
+
+@keyframes bounce{
+    0%{
+        scale: 0;
+    }
+    50%{
+        scale: 1.1;
+    }
+    100%{
+        scale: 1;
+    }
+}
