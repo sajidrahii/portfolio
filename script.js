@@ -50,3 +50,21 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 });
+
+
+// Downloading CV
+document.getElementById("cv-download").addEventListener('click', function(){
+  const cv_path = "assets/download/my-cv.png";
+  window.open(cv_path, '_blank');
+
+  setTimeout(function(){
+    const anchor = document.createElement('a');
+    anchor.href = cv_path;
+    anchor.download = 'sajid_rahi_cv.png';
+
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.removeChild(anchor);
+  });
+
+});

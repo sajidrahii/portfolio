@@ -27,9 +27,6 @@
     --text-red: hsl(345, 65%, 30%); 
     --text-blue: hsl(220, 65%, 60%); 
 
-    --highlight-red: hsl(0, 80%, 50%); 
-    --highlight-yellow: hsl(50, 80%, 50%); 
-
     --grad-orange: hsl(20, 100%, 65%);
     --grad-purple: hsl(340, 70%, 50%);
     --grad-blue: hsl(236, 90%, 35%);
@@ -39,9 +36,15 @@
     --button-hover: hsl(275, 35%, 85%); 
     
     --border: 1px solid hsl(0, 0%, 20%);
-    --white-border: 1px solid hsl(0, 0%, 100%);
-    --purple-border: 1px solid hsl(275, 65%, 50%);
-    --yellow-border: 1px solid hsl(50, 80%, 50%);
+    --border-white: 1px solid hsl(0, 0%, 50%);
+    --border-purple: 1px solid hsl(275, 65%, 50%);
+    --border-yellow: 1px solid hsl(50, 80%, 50%);
+
+    --highlight-red: hsl(0, 80%, 50%); 
+    --highlight-yellow: hsl(50, 80%, 60%); 
+    --highlight-purple: hsl(257, 100%, 60%);
+    --highlight-green: hsl(130, 80%, 60%);
+    --highlight-blue: hsl(220, 80%, 60%);
 
     --card-texts: Mozilla Text;
     --p-font: JetBrains Mono;
@@ -53,6 +56,7 @@
     --yellow-outer-glow: 0 0 20px 0 hsl(50, 80%, 50%);
 
     --hero-image-size: 500px;
+
 }     
 
 html{
@@ -108,8 +112,9 @@ h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, p:hover{
 button{
     height: 50px;
     width: 150px;
-    border-radius: 50px;
+    border-radius: 20px;
     background-color: var(--highlight-yellow);
+    box-shadow: none;
     transition: 0.6s;
 
     font-family: var(--button-font);
@@ -188,13 +193,13 @@ button:hover{
 
 .universal-card-texts h2{
     font-size: 10pt;
-    color: var(--tertiary-text);
+    color: var(--secondary-text);
 }
 
 .universal-card-texts h5{
     background-color: var(--holder-base-color);
     font-size: 8pt;
-    color: var(--tertiary-text);
+    color: var(--highlight-red);
     border: 1px solid var(--border);
 
     border-radius: 20px;
@@ -255,7 +260,7 @@ button:hover{
     transform: translateY(-2px);
 
     box-shadow: var(--purple-outer-glow);
-    border: var(--yellow-border);
+    border: var(--border-yellow);
 }
 
 
@@ -269,7 +274,7 @@ button:hover{
 #section-heading a{
     text-decoration: none;
 
-    border: var(--white-border);
+    border: var(--border-white);
     border-radius: 10px;
 
     width: 80px;
@@ -282,6 +287,7 @@ button:hover{
     color: var(--secondary-text);
 
     transition: 0.6s;
+
 }
 
 #section-heading a:hover{
@@ -407,6 +413,14 @@ header{
     transition: 0.6s;
 }
 
+#text-intro-heading-1{
+    color: var(--highlight-purple);
+}
+
+#text-intro-heading-2{
+    color: var(--highlight-green);
+}
+
 .introleft h1{
     font-size: 60pt;
     font-weight: 1000;
@@ -427,7 +441,7 @@ header{
 }
 
 #myname:hover{
-    color: var(--text-blue);
+    color: var(--highlight-red);
     letter-spacing: 1pt;
 }
 
@@ -440,9 +454,35 @@ header{
     font-size: 10pt;
 }
 
+.intro-btn{
+    display: flex;
+    gap: 1vw;
+}
+
+#cv-download{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+    backdrop-filter: blur(100px);
+    border: var(--border-yellow);
+
+    background: var(--holder-base-color);
+}
+
+#cv-download:hover{
+    background: var(--text-blue);
+}
+
+#cv-download img{
+    height: 20px;
+}
+
 .contact-intro-btn{
     background: var(--holder-base-color);
-    border: 1px solid var(--text-blue);
+    border: 1px solid var(--tertiary-text);
     width: auto;
     height: auto;
     padding: 6px;
@@ -455,7 +495,7 @@ header{
 
 .contact-intro-btn:hover{
     box-shadow: var(--outer-glow);
-    border: var(--purple-border);
+    border: var(--border-purple);
 }
 
 /* SKILL SECTION */
@@ -554,13 +594,14 @@ header{
 }
 
 .vrline{
-    background: var(--tertiary-text);
+    /* background: var(--border-white); */
+    border: var(--border-white);
     width: 1px;
     height: 500px;
 }
 
 #aboutmeire{
-    color: var(--text-blue);
+    color: var(--highlight-green);
     letter-spacing: 4pt;
 }
 
@@ -575,7 +616,7 @@ header{
 }
 
 #engtext{
-    color: var(--grad-purple);
+    color: var(--highlight-purple);
 }
 
 /* STORY SECTION */
@@ -620,7 +661,7 @@ header{
     scale: 1.05;
     transform: translateY(-10px);
 
-    border: var(--yellow-border);
+    border: var(--border-yellow);
     border-radius: 30px;
 }
 
