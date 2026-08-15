@@ -1,26 +1,22 @@
 @keyframes pop{
-    0%{
-        scale: 0;
-        transform: translateX(10vw);
-    }
-    50%{
-        scale: 1.2;
-        transform: translateX(5vw);
-    }
-    100%{
-        transform: translateX(0);
-        scale: 1;
-    }
+    0%{ opacity: 0; scale: .85; transform: translateY(12px); }
+    60%{ opacity: 1; scale: 1.03; transform: translateY(0); }
+    100%{ scale: 1; transform: translateY(0); }
 }
 
 @keyframes bounce{
-    0%{
-        scale: 0;
-    }
-    50%{
-        scale: 1.1;
-    }
-    100%{
-        scale: 1;
-    }
+    0%{ scale: .9; opacity: 0; }
+    60%{ scale: 1.03; opacity: 1; }
+    100%{ scale: 1; }
+}
+
+@keyframes pulse-dot{
+    0%, 100%{ box-shadow: 0 0 0 3px var(--cyan-dim); }
+    50%{ box-shadow: 0 0 0 6px transparent; }
+}
+
+@keyframes blink{
+    0%, 45%{ opacity: 1; }
+    50%, 95%{ opacity: 0; }
+    100%{ opacity: 1; }
 }

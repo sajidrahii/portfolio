@@ -1,70 +1,105 @@
-const cursorLight = document.getElementById('cursorLightPng');
+document.addEventListener('DOMContentLoaded', () => {
 
-document.addEventListener('mousemove', (e) => {
-  cursorLight.style.left = e.clientX + 'px';
-  cursorLight.style.top = e.clientY + 'px';
-});
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
 
-document.addEventListener("DOMContentLoaded", () => {
-  // 1. Select all the sections you want to animate
-  const sections = document.querySelectorAll(".jsanimate");
-  const headings = document.querySelectorAll(".heading-animate");
-  const buttons = document.querySelectorAll(".btn");
-  const cards = document.querySelectorAll(".card");
-
-  // 2. Configure the observer settings
-  const observerOptions = {
-    root: null,         // Uses the device viewport as the bounding box
-    rootMargin: "0px",  // No extra margin expansion
-    threshold: 0.15     // Triggers when 15% of the section is visible
-  }; 
-
-  // 3. Define what happens when a section intersects the screen
-  const sectionObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      // Check if the section has entered the viewport
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-        
-        // Stop watching this specific section once it has animated in
-        observer.unobserve(entry.target);
-      }
+  /* ---------------------------------------------------------
+     Cursor light — desktop, motion-enabled only
+  --------------------------------------------------------- */
+  const cursorLight = document.getElementById('cursorLightPng');
+  if (cursorLight && !isTouchDevice && !prefersReducedMotion) {
+    document.addEventListener('mousemove', (e) => {
+      cursorLight.style.left = e.clientX + 'px';
+      cursorLight.style.top = e.clientY + 'px';
     });
-  }, observerOptions);
+  } else if (cursorLight) {
+    cursorLight.style.display = 'none';
+  }
 
-  // 4. Track each individual section element
-  sections.forEach(section => {
-    sectionObserver.observe(section);
-  });
+  /* ---------------------------------------------------------
+     Scroll-reveal animations
+  --------------------------------------------------------- */
+  const sections = document.querySelectorAll('.jsanimate');
+  const headings = document.querySelectorAll('.heading-animate');
+  const buttons = document.querySelectorAll('.btn');
+  const cards = document.querySelectorAll('.card');
 
-  headings.forEach(heading => {
-    sectionObserver.observe(heading);
-  });
+  if (prefersReducedMotion) {
+    [...sections, ...headings, ...buttons, ...cards].forEach(el => el.classList.add('is-visible'));
+  } else {
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { root: null, rootMargin: '0px', threshold: 0.15 });
 
-  buttons.forEach(button => {
-    sectionObserver.observe(button);
-  });
+    [...sections, ...headings, ...buttons, ...cards].forEach(el => revealObserver.observe(el));
+  }
 
-  cards.forEach(card => {
-    sectionObserver.observe(card);
-  });
+  /* ---------------------------------------------------------
+     Mobile nav toggle
+  --------------------------------------------------------- */
+  const navToggle = document.getElementById('navToggle');
+  const navPanel = document.getElementById('primaryNav');
 
-});
+  if (navToggle && navPanel) {
+    navToggle.addEventListener('click', () => {
+      const isOpen = navPanel.classList.toggle('is-open');
+      navToggle.classList.toggle('is-active', isOpen);
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+    });
 
+    navPanel.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navPanel.classList.remove('is-open');
+        navToggle.classList.remove('is-active');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
 
-// Downloading CV
-document.getElementById("cv-download").addEventListener('click', function(){
-  const cv_path = "assets/download/my-cv.png";
-  window.open(cv_path, '_blank');
+  /* ---------------------------------------------------------
+     Active nav link on scroll
+  --------------------------------------------------------- */
+  const navLinks = document.querySelectorAll('.nav__links a');
+  const trackedSections = [...navLinks]
+    .map(link => document.querySelector(link.getAttribute('href')))
+    .filter(Boolean);
 
-  setTimeout(function(){
-    const anchor = document.createElement('a');
-    anchor.href = cv_path;
-    anchor.download = 'sajid_rahi_cv.png';
+  if (trackedSections.length && navLinks.length) {
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = '#' + entry.target.id;
+          navLinks.forEach(link => {
+            link.classList.toggle('is-active', link.getAttribute('href') === id);
+          });
+        }
+      });
+    }, { root: null, rootMargin: '-45% 0px -50% 0px', threshold: 0 });
 
-    document.body.appendChild(anchor);
-    anchor.click();
-    document.removeChild(anchor);
-  });
+    trackedSections.forEach(section => navObserver.observe(section));
+  }
+
+  /* ---------------------------------------------------------
+     CV download
+  --------------------------------------------------------- */
+  const cvButton = document.getElementById('cv-download');
+  if (cvButton) {
+    cvButton.addEventListener('click', function () {
+      const cvPath = 'assets/download/my-cv.png';
+      window.open(cvPath, '_blank');
+
+      const anchor = document.createElement('a');
+      anchor.href = cvPath;
+      anchor.download = 'sajid_rahi_cv.png';
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
+    });
+  }
 
 });

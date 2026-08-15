@@ -1,374 +1,401 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>document.documentElement.classList.add('js');</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sajid Rahi | IoT & Robo. Eng.</title>
+    <meta name="description" content="Sajid Rahi — IoT & Robotics Engineer and Embedded Systems Designer. Portfolio, skills, certifications and story.">
+    <meta name="theme-color" content="#05060A">
+    <title>Sajid Rahi | IoT & Robotics Engineer</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="animations.css">
 </head>
 <body>
-    <section>
-        <div class="lights"><img src="assets/Lights.png" alt=""></div>
 
-        <div class="cursorlight"><img src="assets/CursorLight.png" alt="" id="cursorLightPng"></div>
+    <a class="skip-link" href="#introduction">Skip to content</a>
 
-        <div class="grid"></div>
-    </section>
- 
-    <section id="header">
-        <header>
-            <div class="headleft">
-                <img src="assets/Sajid Rahi Logo.png" alt="">
+    <div class="bg-fx" aria-hidden="true">
+        <div class="bg-fx__lights"><img src="assets/Lights.png" alt=""></div>
+        <div class="bg-fx__cursor"><img src="assets/CursorLight.png" alt="" id="cursorLightPng"></div>
+        <div class="bg-fx__grid"></div>
+    </div>
+
+    <header id="site-header">
+        <div class="site-header__inner">
+            <a class="brand" href="#introduction" aria-label="Sajid Rahi — home">
+                <img src="assets/Sajid Rahi Logo.png" alt="Sajid Rahi logo">
+            </a>
+
+            <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
+                <span></span><span></span><span></span>
+            </button>
+
+            <div class="nav__panel" id="primaryNav">
+                <nav class="nav__links" aria-label="Primary">
+                    <a href="#introduction">Introduction</a>
+                    <a href="#about">About</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#works">Works</a>
+                    <a href="#certification">Certifications</a>
+                    <a href="#story">Story</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+
+                <div class="nav__socials">
+                    <a href="#" title="GitHub" aria-label="GitHub profile"><img src="assets/social-icons/github.png" alt="" loading="lazy"></a>
+                    <a href="#" title="LinkedIn" aria-label="LinkedIn profile"><img src="assets/social-icons/linkedin.png" alt="" loading="lazy"></a>
+                    <a href="#" title="Facebook" aria-label="Facebook profile"><img src="assets/social-icons/facebook.png" alt="" loading="lazy"></a>
+                    <a href="#" title="Instagram" aria-label="Instagram profile"><img src="assets/social-icons/instagram.png" alt="" loading="lazy"></a>
+                    <a href="#" title="X / Twitter" aria-label="X profile"><img src="assets/social-icons/twitter.png" alt="" loading="lazy"></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <section id="introduction" class="section hero jsanimate">
+            <div class="hero__grid">
+                <div class="hero__content">
+                    <p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>$ whoami</p>
+
+                    <div class="hero__tags">
+                        <span class="tag tag--violet">IoT &amp; Robotics Engineer</span>
+                        <span class="tag tag--cyan">Embedded Systems Designer</span>
+                        <span class="tag tag--amber">Video Editor &amp; Graphic Designer</span>
+                    </div>
+
+                    <p class="hero__lead heading-animate">Hi, I'm</p>
+                    <h1 class="hero__name heading-animate" id="myname">Sajid Rahi<span class="cursor-blink" aria-hidden="true">_</span></h1>
+
+                    <p class="hero__desc">
+                        I design embedded systems that solve real-world problems,
+                        combining IoT and robotics into products that work.
+                    </p>
+
+                    <div class="hero__actions">
+                        <a href="#works" class="btn btn--primary">View Projects</a>
+                        <button class="btn btn--ghost" id="cv-download">
+                            <span>Download CV</span>
+                            <img src="assets/icons/download.png" alt="" aria-hidden="true">
+                        </button>
+                    </div>
+
+                    <div class="hero__contacts">
+                        <a class="pill-link" href="mailto:sajidahmedrahii@gmail.com">sajidahmedrahii@gmail.com</a>
+                        <a class="pill-link" href="#" target="_blank" rel="noopener">GitHub</a>
+                        <a class="pill-link" href="#" target="_blank" rel="noopener">LinkedIn</a>
+                    </div>
+                </div>
+
+                <div class="hero__portrait hero-image">
+                    <img src="assets/PDP03.png" alt="Portrait illustration of Sajid Rahi">
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section about jsanimate">
+            <div class="about__layout">
+                <div class="hero-image about__portrait">
+                    <img src="assets/PDP01.png" alt="Portrait illustration of Sajid Rahi">
+                </div>
+
+                <hr class="vrline" aria-hidden="true">
+
+                <div class="about__content">
+                    <p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>$ whoami --verbose</p>
+
+                    <h2 class="section-title heading-animate">
+                        An <span class="text-green">IoT &amp; Robotics</span>
+                        <span class="text-purple">Engineering</span> student
+                        thirsty for knowledge
+                    </h2>
+
+                    <p class="body-copy">
+                        I'm a third-year student in the Department of IoT &amp; Robotics Engineering
+                        at the University of Frontier Technology, Bangladesh.
+                    </p>
+                    <p class="body-copy">
+                        My work focuses on embedded systems that tackle real-world challenges,
+                        where I enjoy bridging hardware and software to create impactful solutions.
+                    </p>
+                    <p class="body-copy">
+                        I'm especially passionate about embedded system development, AI-powered
+                        analytics, and building digital products that merge innovation with practicality.
+                    </p>
+                    <p class="body-copy">
+                        My goal is to design intelligent, connected systems that not only solve
+                        problems but also push the boundaries of what technology can achieve.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section jsanimate">
+            <div class="section-header">
+                <p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>$ ls ./capabilities</p>
+                <div class="section-header__row">
+                    <h2 class="section-title">
+                        IoT &amp; Robotics Engineering, Embedded System Design,
+                        Motion Graphics &amp; Graphic Design
+                    </h2>
+                    <a href="assets/download/my-cv.png" class="btn btn--outline" target="_blank" rel="noopener">View CV</a>
+                </div>
             </div>
 
-            <div class="navbar">
-                <a href="index.html#introduction">Introduction</a>
-                <a href="">Works</a>
-                <a href="">Skills</a>
-                <a href="index.html#certification">Certifications</a>
-                <a href="index.html#story">Story</a>
-                <a href="">Contact</a>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Development</h3>
+                    <ul class="tag-list">
+                        <li>Python</li>
+                        <li>C++</li>
+                        <li>JavaScript</li>
+                        <li>HTML5</li>
+                        <li>CSS3</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>IoT &amp; Robotics</h3>
+                    <ul class="tag-list">
+                        <li>Embedded Systems Engineering</li>
+                        <li>System Design Architecture</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Professional</h3>
+                    <ul class="tag-list">
+                        <li>Leadership</li>
+                        <li>Communication</li>
+                        <li>Team Collaboration</li>
+                        <li>Content Writing</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Tools</h3>
+                    <ul class="tag-list">
+                        <li>Git</li>
+                        <li>GitHub</li>
+                        <li>VS Code</li>
+                        <li>MySQL</li>
+                        <li>Adobe Ae</li>
+                        <li>Adobe Pr</li>
+                        <li>Adobe Ps</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="works" class="section jsanimate">
+            <div class="section-header">
+                <p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>$ ls ./projects</p>
+                <div class="section-header__row">
+                    <h2 class="section-title">Selected Builds</h2>
+                </div>
             </div>
 
-            <div class="headright">
-                <a href="" title="GitHub"><img src="assets/social-icons/github.png" alt=""></a>
-                <a href="" title="Linkedin"><img src="assets/social-icons/linkedin.png" alt=""></a>
-                <a href="" title="Facebook"><img src="assets/social-icons/facebook.png" alt=""></a>
-                <a href="" title="Instagram"><img src="assets/social-icons/instagram.png" alt=""></a>
-                <a href="" title="X/Twitter"><img src="assets/social-icons/twitter.png" alt=""></a>
-            </div>
-        </header>
-    </section>
-
-    <section id="introduction" class="jsanimate">
-        <div class="intro">
-            <div class="introleft">
-                <p id="text-intro-heading-1">IoT & Robotics Engineer . Embedded System Designer</p>
-                <p id="text-intro-heading-2">Intermediate Video Editor & Graphic Designer</p>
-
-                <h1 class="heading-animate">Hi, I'm</h1>
-                <h1 class="heading-animate" id="myname">SAJID RAHI</h1>
-
-                <p id="whatido">I design Embedded systems that solve Real-World problems <br>
-                combining IoT and Robotics...
+            <div class="card card--wide">
+                <h3>Write-ups in progress</h3>
+                <p class="body-copy">
+                    Detailed case studies for my embedded systems and robotics builds are
+                    being put together. In the meantime, my repositories are the fastest
+                    way to see the work in progress.
                 </p>
+                <a href="#" target="_blank" rel="noopener" class="btn btn--outline">Browse GitHub</a>
+            </div>
+        </section>
 
-                <div class="intro-btn">
-                    <button class="btn">View Projects</button>
-                    <button class="btn" id="cv-download">
-                        <p>Download CV</p>
-                        <img src="assets/icons/download.png" alt="">
-                    </button>
-                </div>
-
-                <div class="contact-intro-btn-section">
-                    <button class="contact-intro-btn">sajidahmedrahii@gmail.com<a href="#"></a></button>
-                    <button class="contact-intro-btn">GitGub<a href="#"></a></button>
-                    <button class="contact-intro-btn">Linkedin<a href="#"></a></button>
+        <section id="certification" class="section jsanimate">
+            <div class="section-header">
+                <p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>$ cat proof_of_practice.log</p>
+                <div class="section-header__row">
+                    <h2 class="section-title">Proof of Practice</h2>
+                    <a href="assets/download/my-cv.png" class="btn btn--outline" target="_blank" rel="noopener">View CV</a>
                 </div>
             </div>
 
-            <div class="hero-image">
-                <img src="assets/PDP03.png" alt="">
-            </div>
-        </div>
-    </section>
-
-    <section id="about-me" class="jsanimate">
-        <div class="aboutme">
-            <div class="hero-image"><img src="assets/PDP01.png" alt=""></div>
-
-            <hr class="vrline"></hr>
-
-            <div class="aboutmeright">
-                <div class="text-section-heading">
-                    <p>ABOUT ME</p>
-                </div>
-
-                <div class="universal-heading">
-                    <h1 class="heading-animate" id="aboutmeire">
-                        An IoT & <br> 
-                        Robotics <br>
-                    </h1>
-                    <h1 class="heading-animate" id="engtext">Engineering</h1>
-                    <h1 class="heading-animate">
-                        Student <br>
-                        Thirsty for <br>
-                        Knowledge
-                    </h1>
-                </div>
-
-                <p id="my-bio">
-                    I'm a third-year student in the Department of IoT & Robotics Engineering 
-                    <br>
-                    at the University of Frontier Technology, Bangladesh. <br>
-
-                    My work focuses on embedded systems to tackle real-world challenges,<br>
-                    where I enjoy bridging hardware and software to create impactful solutions. <br>
-
-                    I'm especially passionate about embedded system development, <br>
-                    AI-powered analytics, and building digital products that merge innovation with practicality. <br>
-
-                    My goal is to design intelligent, connected systems that not only solve problems <br>
-                    but also push the boundaries of what technology can achieve. 
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <section id="skills" class="jsanimate">
-        <div class="text-section-heading">
-            <p>CAPABILITIES</p>
-        </div>
-        
-        <div class="universal-heading" id="section-heading">
-            <h1>
-                IoT & Robotics Engineering <br>
-                Embedded System Designing <br>
-                Motion Graphics & <br>
-                Graphic Designing 
-            </h1>
-            <a href="assets/download/my-cv.png" class="cv-download" target="_blank">View CV</a>
-        </div>
-
-        <div class="cardholder">
-            <div class="card">
-                <div class="universal-card-texts">
-                    <h1>Development</h1>
-                    <div class="universal-card-points">
-                        <h5>Python</h5>
-                        <h5>C++</h5>
-                        <h5>JavaScript</h5>
+            <div class="card-grid">
+                <div class="card card--cert">
+                    <div class="card__media">
+                        <img src="assets/achievements/Wadhwani-Foundation-Certificate.jpg" alt="21st Century Employability Program certificate from Wadhwani Foundation" loading="lazy">
                     </div>
-                    <div class="universal-card-points">
-                        <h5>HTML5</h5>
-                        <h5>CSS3</h5>
+                    <span class="tag">Communication</span>
+                    <h3>21st Century Employability Program</h3>
+                    <p class="muted">Wadhwani Foundation</p>
+                    <a class="view-cert" href="#">
+                        View Certificate
+                        <img src="assets/icons/arrow_outward.png" alt="" aria-hidden="true">
+                    </a>
+                </div>
+
+                <div class="card card--cert">
+                    <div class="card__media">
+                        <img src="assets/achievements/DataCanvas Poster Competition_SUB Computing Club.jpeg" alt="SUB CSE Tech Carnival 2.6 poster competition certificate" loading="lazy">
                     </div>
-                </div> 
-            </div>
+                    <span class="tag">Poster Competition</span>
+                    <h3>SUB CSE Tech Carnival 2.6</h3>
+                    <p class="muted">State University of Bangladesh Computing Club</p>
+                    <a class="view-cert" href="#">
+                        View Certificate
+                        <img src="assets/icons/arrow_outward.png" alt="" aria-hidden="true">
+                    </a>
+                </div>
 
-            <div class="card">
-                <div class="universal-card-texts">
-                    <h1>IoT & Robotics</h1>
-                    <div class="universal-card-points">
-                        <h5>Embedded Systems Engineering</h5>
+                <div class="card card--cert">
+                    <div class="card__media">
+                        <img src="assets/achievements/Robotics Camp 1st-stage.jpg" alt="Robotics Camp 2024 certificate from Roboment R&D Lab" loading="lazy">
                     </div>
-                    <div class="universal-card-points">
-                        <h5>System Design Architecture</h5>
+                    <span class="tag">Robotics</span>
+                    <h3>Robotics Camp — 2024</h3>
+                    <p class="muted">Roboment R&amp;D Lab, Gazipur</p>
+                    <a class="view-cert" href="#">
+                        View Certificate
+                        <img src="assets/icons/arrow_outward.png" alt="" aria-hidden="true">
+                    </a>
+                </div>
+
+                <div class="card card--cert">
+                    <div class="card__media">
+                        <img src="assets/achievements/DOT_Photography.jpg" alt="4th National Cultural Event photography certificate" loading="lazy">
                     </div>
-                </div> 
-            </div>
+                    <span class="tag">Photography</span>
+                    <h3>4th National Cultural Event</h3>
+                    <p class="muted">Dreams The Way</p>
+                    <a class="view-cert" href="#">
+                        View Certificate
+                        <img src="assets/icons/arrow_outward.png" alt="" aria-hidden="true">
+                    </a>
+                </div>
 
-            <div class="card">
-                <div class="universal-card-texts">
-                    <h1>Professional</h1>
-                    <div class="universal-card-points">
-                        <h5>Leadership</h5>
-                        <h5>Communication</h5>
+                <div class="card card--cert">
+                    <div class="card__media">
+                        <img src="assets/achievements/sajid_ahmed_rahi_cyber_hygiene_119749_page-0001.jpg" alt="Cyber Hygiene Training Course certificate" loading="lazy">
                     </div>
-                    <div class="universal-card-points">
-                        <h5>Team Collaboration</h5>
-                        <h5>Content Writing</h5>
+                    <span class="tag">Cyber Security</span>
+                    <h3>Cyber Hygiene Training Course</h3>
+                    <p class="muted">The Asia Foundation &amp; SAJIDA Foundation</p>
+                    <a class="view-cert" href="#">
+                        View Certificate
+                        <img src="assets/icons/arrow_outward.png" alt="" aria-hidden="true">
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="story" class="section jsanimate">
+            <p class="eyebrow eyebrow--center"><span class="eyebrow__dot" aria-hidden="true"></span>$ cat career.log</p>
+
+            <div class="story__layout">
+                <div class="story-col" id="storyleft">
+                    <h2>Education</h2>
+
+                    <div class="storycard">
+                        <div class="storycard__icon"><img src="assets/icons/school.png" alt="" aria-hidden="true"></div>
+                        <div class="storycard__body">
+                            <h3>University of Frontier Technology, Bangladesh</h3>
+                            <p>B.Sc. in IoT &amp; Robotics Engineering</p>
+                            <p class="muted">July 2023 – July 2027 · CGPA 3.86</p>
+                        </div>
                     </div>
-                </div> 
-            </div>
-        </div>
 
-        <div class="cardholder">
-            <div class="card">
-                <div class="universal-card-texts">
-                    <h1>Tools</h1>
-                    <div class="universal-card-points">
-                        <h5>Git</h5>
-                        <h5>GitHub</h5>
-                        <h5>VS Code</h5>
-                        <h5>MySQL</h5>
+                    <div class="storycard">
+                        <div class="storycard__icon"><img src="assets/icons/school.png" alt="" aria-hidden="true"></div>
+                        <div class="storycard__body">
+                            <h3>Ideal College, Dhanmondi</h3>
+                            <p>Science</p>
+                            <p class="muted">July 2020 – August 2022 · GPA 5.00</p>
+                        </div>
                     </div>
-                    <div class="universal-card-points">
-                        <h5>Adobe Ae</h5>
-                        <h5>Adobe Pr</h5>
-                        <h5>Adobe Ps</h5>
+
+                    <div class="storycard">
+                        <div class="storycard__icon"><img src="assets/icons/school.png" alt="" aria-hidden="true"></div>
+                        <div class="storycard__body">
+                            <h3>Banglahili Pilot School &amp; College</h3>
+                            <p>Science</p>
+                            <p class="muted">January 2016 – February 2020 · GPA 5.00</p>
+                        </div>
                     </div>
-                </div> 
-            </div>
-        </div>
-
-    </section>
-
-    <section id="certification" class="jsanimate">
-        <div class="text-section-heading">
-            <p>CERTIFICATIONS</p>
-        </div>
-        
-        <div class="universal-heading" id="section-heading">
-            <h1>Proof of Practice</h1>
-            <a href="assets/download/my-cv.png" class="cv-download" target="_blank">View CV</a>
-        </div>
-
-        <div class="cardholder">
-            <div class="card">
-                <div class="certimgholder"><img src="assets/achievements/Wadhwani-Foundation-Certificate.jpg" alt=""></div>
-
-                <div class="universal-card-texts">
-                    <h5>Communication</h5>
-                    <h1>21st Century Employability Program</h1>
-                    <h2>Wadhwani Foundation</h2>
                 </div>
 
-                <div class="viewcert">
-                    <a href="#">View Certificate</a>
-                    <img src="assets/icons/arrow_outward.png" alt="">
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="certimgholder"><img src="assets/achievements/DataCanvas Poster Competition_SUB Computing Club.jpeg" alt=""></div>
-
-                <div class="universal-card-texts">
-                    <h5>Poster Competition</h5>
-                    <h1>SUB CSE TECH CARNIVAL 2.6</h1>
-                    <h2>State University of Bangladesh Computing Club</h2>
+                <div class="story-col hero-image story__portrait"> 
+                    <img src="assets/PDP02.png" alt="Portrait illustration of Sajid Rahi">
                 </div>
 
-                <div class="viewcert">
-                    <a href="#">View Certificate</a>
-                    <img src="assets/icons/arrow_outward.png" alt="">
-                </div>
-            </div>
+                <div class="story-col" id="storyright">
+                    <h2>Leadership &amp; Credentials</h2>
 
-            <div class="card">
-                <div class="certimgholder"><img src="assets/achievements/Robotics Camp 1st-stage.jpg" alt=""></div>
+                    <div class="storycard">
+                        <div class="storycard__icon"><img src="assets/icons/badge.png" alt="" aria-hidden="true"></div>
+                        <div class="storycard__body">
+                            <h3>UFTB Robotics Club</h3>
+                            <p>Deputy Publication Secretary</p>
+                            <p class="muted">2024 – Present</p>
+                        </div>
+                    </div>
 
-                <div class="universal-card-texts">
-                    <h5>Robotics</h5>
-                    <h1>Robotics Camp - 2024</h1>
-                    <h2>Roboment R&D Lab, Gazipur</h2>
-                </div>
+                    <div class="storycard">
+                        <div class="storycard__icon"><img src="assets/icons/badge.png" alt="" aria-hidden="true"></div>
+                        <div class="storycard__body">
+                            <h3>UFTB Project Archive (Student Community)</h3>
+                            <p>Founder &amp; CEO</p>
+                            <p class="muted">2026 – Present</p>
+                        </div>
+                        
+                    </div>
 
-                <div class="viewcert">
-                    <a href="#">View Certificate</a>
-                    <img src="assets/icons/arrow_outward.png" alt="">
+                    <div class="storycard">
+                        <div class="storycard__icon"><img src="assets/icons/art.png" alt="" aria-hidden="true"></div>
+                        <div class="storycard__body">
+                            <h3>PiXimpressive (Photographers Community)</h3>
+                            <p>Owner &amp; CEO</p>
+                            <p class="muted">2020 – Present</p>
+                        </div>
+                        
+                    </div>
+
+                    <div class="storycard">
+                        <div class="storycard__icon"><img src="assets/icons/sport.png" alt="" aria-hidden="true"></div>
+                        <div class="storycard__body">
+                            <h3>Hili Pilotian Batch 2020 (Sports Team)</h3>
+                            <p>Media &amp; Publication Secretary</p>
+                            <p class="muted">2020 – Present</p>
+                        </div>
+                        
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="cardholder">
-            <div class="card">
-                <div class="certimgholder"><img src="assets/achievements/DOT_Photography.jpg" alt=""></div>
+        <section id="contact" class="section contact jsanimate">
+            <p class="eyebrow eyebrow--center"><span class="eyebrow__dot" aria-hidden="true"></span>$ ./connect.sh</p>
+            <h2 class="section-title contact__title">Let's build something.</h2>
+            <p class="body-copy contact__lead">
+                Open to internships, collaborations and embedded systems projects.
+                The fastest way to reach me is email.
+            </p>
 
-                <div class="universal-card-texts">
-                    <h5>Photography</h5>
-                    <h1>4th National Cultural Event</h1>
-                    <h2>Dreams The The Way</h2>
-                </div>
-
-                <div class="viewcert">
-                    <a href="#">View Certificate</a>
-                    <img src="assets/icons/arrow_outward.png" alt="">
-                </div>
+            <div class="contact__actions">
+                <a class="btn btn--primary" href="mailto:sajidahmedrahii@gmail.com">sajidahmedrahii@gmail.com</a>
             </div>
 
-            <div class="card">
-                <div class="certimgholder"><img src="assets/achievements/sajid_ahmed_rahi_cyber_hygiene_119749_page-0001.jpg" alt=""></div>
-
-                <div class="universal-card-texts">
-                    <h5>Cyber Security</h5>
-                    <h1>Cyber Hygiene Training Course</h1>
-                    <h2>The Asia Foundation & SAJIDA Foundation</h2>
-                </div>
-
-                <div class="viewcert">
-                    <a href="#">View Certificate</a>
-                    <img src="assets/icons/arrow_outward.png" alt="">
-                </div>
+            <div class="nav__socials contact__socials">
+                <a href="#" title="GitHub" aria-label="GitHub profile"><img src="assets/social-icons/github.png" alt="" loading="lazy"></a>
+                <a href="#" title="LinkedIn" aria-label="LinkedIn profile"><img src="assets/social-icons/linkedin.png" alt="" loading="lazy"></a>
+                <a href="#" title="Facebook" aria-label="Facebook profile"><img src="assets/social-icons/facebook.png" alt="" loading="lazy"></a>
+                <a href="#" title="Instagram" aria-label="Instagram profile"><img src="assets/social-icons/instagram.png" alt="" loading="lazy"></a>
+                <a href="#" title="X / Twitter" aria-label="X profile"><img src="assets/social-icons/twitter.png" alt="" loading="lazy"></a>
             </div>
-        </div>
+        </section>
 
-    </section>
+    </main>
 
-    <section id="story" class="jsanimate">
-        <div class="story-card-holder" id="storyleft">
-            <h4>EDUCATION</h4>
-
-            <div class="storycard">
-                <div class="storylefticon"><img src="assets/icons/school.png" alt=""></div>
-                <div class="storyleftpara">
-                    <h1>University of Frontier Technology, Bangladesh</h1>
-                    <h2>B.Sc. in IoT & Robotics Engineering</h2>
-                    <h3>July 2023 - July 2027 : CGPA 3.86</h3>
-                </div>
-            </div>
-
-            <div class="storycard">
-                <div class="storylefticon"><img src="assets/icons/school.png" alt=""></div>
-                <div class="storyleftpara">
-                    <h1>Ideal College, Dhanmandi</h1>
-                    <h2>Science</h2>
-                    <h3>July 2020 - August 2022 : GPA 5.00</h3>
-                </div>
-            </div>
-
-            <div class="storycard">
-                <div class="storylefticon"><img src="assets/icons/school.png" alt=""></div>
-                <div class="storyleftpara">
-                    <h1>Banglahili Pilot School & College</h1>
-                    <h2>Science</h2>
-                    <h3>January 2016 - February 2020 : GPA 5.00</h3>
-                </div>
-            </div>
-        </div>
-
-        <div class="hero-image">
-            <img src="assets/PDP02.png" alt="">
-        </div>
-
-        <div class="story-card-holder" id="storyright">
-            <h4>LEADERSHIP & CREDENTIALS</h4>
-
-            <div class="storycard">
-                <div class="storyleftpara">
-                    <h1>UFTB Robotics Club</h1>
-                    <h2>Deputy Publication Secretary</h2>
-                    <h3>2024 - Present</h3>
-                </div>
-
-                <div class="storylefticon"><img src="assets/icons/badge.png" alt=""></div>
-            </div>
-
-            <div class="storycard">
-                <div class="storyleftpara">
-                    <h1>UFTB Project Archive (Students Community)</h1>
-                    <h2>Founder & CEO</h2>
-                    <h3>2026 - Present</h3>
-                </div>
-
-                <div class="storylefticon"><img src="assets/icons/badge.png" alt=""></div>
-            </div>
-
-            <div class="storycard">
-                <div class="storyleftpara">
-                    <h1>PiXimpressive (Photographers Community)</h1>
-                    <h2>Owner & CEO</h2>
-                    <h3>2020 - Present</h3>
-                </div>
-
-                <div class="storylefticon"><img src="assets/icons/art.png" alt=""></div>
-            </div>
-
-            <div class="storycard">
-                <div class="storyleftpara">
-                    <h1>Hili Pilotian Batch 2020 (Sports Team)</h1>
-                    <h2>Media & Publication Secretary</h2>
-                    <h3>2020 - Present</h3>
-                </div>
-
-                <div class="storylefticon"><img src="assets/icons/sport.png" alt=""></div>
-            </div>
-            
-        </div>
-    </section>
+    <footer class="site-footer">
+        <p>© 2026 Sajid Rahi. Built line by line.</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
