@@ -1,7 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script>document.documentElement.classList.add('js');</script>
+    <script>
+        (function(){
+            var r = document.documentElement.classList;
+            r.add('js');
+            if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                r.add('booting');
+                setTimeout(function(){ r.remove('booting'); }, 12000); /* failsafe */
+            }
+        })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Sajid Rahi — IoT & Robotics Engineer and Embedded Systems Designer. Portfolio, skills, certifications and story.">
@@ -11,8 +20,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="boot.css">
 </head>
 <body>
+
+    <div id="boot" class="boot" aria-hidden="true">
+        <div class="boot__half boot__half--top"></div>
+        <div class="boot__half boot__half--bottom"></div>
+        <div class="boot__win">
+            <div class="boot__title"><i></i><i></i><i></i><span>sajid.portfolio: boot</span></div>
+            <div class="boot__body"><p class="boot__logo">SAJID<span> RAHI</span><small>v2</small></p></div>
+            <div class="boot__prog"><span id="bootBar"></span></div>
+        </div>
+        <p class="boot__hint">Click or press any key to skip</p>
+    </div>
 
     <a class="skip-link" href="#introduction">Skip to content</a>
 
@@ -195,17 +216,54 @@
                 <p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>$ ls ./projects</p>
                 <div class="section-header__row">
                     <h2 class="section-title">Selected Builds</h2>
+                    <span class="project-count" id="projectCount"></span>
+                    <a href="#" target="_blank" rel="noopener" class="btn btn--outline">Browse GitHub</a>
                 </div>
             </div>
 
-            <div class="card card--wide">
-                <h3>Write-ups in progress</h3>
-                <p class="body-copy">
-                    Detailed case studies for my embedded systems and robotics builds are
-                    being put together. In the meantime, my repositories are the fastest
-                    way to see the work in progress.
-                </p>
-                <a href="#" target="_blank" rel="noopener" class="btn btn--outline">Browse GitHub</a>
+            <div class="project-board">
+                <!--
+                    TO ADD A PROJECT: copy one whole <article class="card project"> block below
+                    and paste it at the end of the list. The board is 2 columns; the 5th card
+                    onwards starts a new row and the board scrolls on its own.
+                    Replace the "no preview" box by un-commenting the <img> line.
+                -->
+                <div class="project-scroller" tabindex="0" role="region" aria-label="Projects, scrollable list">
+
+                    </article>
+                    <article class="card project">
+                        <div class="project__media">
+                            <!-- <img src="assets/projects/your-image.jpg" alt="Describe the image" loading="lazy"> -->
+                             <img src="assets/projects/Luscus.JPG" alt="Describe the image" loading="lazy">
+                        </div>
+                        <div class="project__body">
+                            <h3>Luscus</h3>
+                            <p class="body-copy project__desc">A Computer Vision–Based Autonomous Navigation System Using ESP32-CAM and YOLO</p>
+                            <ul class="tag-list"><li>Embedded System</li><li>Computer Vision</li></ul>
+                            <div class="project__links">
+                                <a class="view-cert" href="javascript:void(0);" target="_blank" rel="noopener">Source code <img src="assets/icons/arrow_outward.png" alt="" aria-hidden="true"></a>
+                                <a class="view-cert" href="javascript:void(0);" target="_blank" rel="noopener">Live demo <img src="assets/icons/arrow_outward.png" alt="" aria-hidden="true"></a>
+                            </div>
+                        </div>
+                    </article>
+
+
+                    <article class="card project">
+                        <div class="project__media">
+                            <!-- <img src="assets/projects/your-image.jpg" alt="Describe the image" loading="lazy"> -->
+                             <img src="assets/projects/Gontobbohin.jpg" alt="Describe the image" loading="lazy">
+                        </div>
+                        <div class="project__body">
+                            <h3>Gontobbohin</h3>
+                            <p class="body-copy project__desc">A creative concept transforming Bangladesh’s 64 districts into an interactive journey.</p>
+                            <ul class="tag-list"><li>Claude</li></ul>
+                            <div class="project__links">
+                                <a class="view-cert" href="javascript:void(0);" target="_blank" rel="noopener">Source code <img src="assets/icons/arrow_outward.png" alt="" aria-hidden="true"></a>
+                                <a class="view-cert" href="https://sajidrahii.github.io/gontobbohin/" target="_blank" rel="noopener">Live demo <img src="assets/icons/arrow_outward.png" alt="" aria-hidden="true"></a>
+                            </div>
+                        </div>
+
+                </div>
             </div>
         </section>
 
@@ -221,12 +279,38 @@
             <div class="card-grid">
                 <div class="card card--cert">
                     <div class="card__media">
+                        <img src="assets/achievements/RoboFusion 1.0_Vol .jpg" alt="RoboFusion 1.0" loading="lazy">
+                    </div>
+                    <span class="tag">Communication</span>
+                    <h3>RoboFusion 1.0 Volunteer</h3>
+                    <p class="muted">UFTB Robotics Club</p>
+                    <a class="view-cert" href="assets/achievements/RoboFusion 1.0_Vol .jpg" target="_blank">
+                        View Certificate
+                        <img src="assets/icons/arrow_outward.png" alt="" aria-hidden="true">
+                    </a>
+                </div>
+
+                <div class="card card--cert">
+                    <div class="card__media">
+                        <img src="assets/achievements/RoboFusion 1.0_exm.jpg" alt="RoboFusion 1.0" loading="lazy">
+                    </div>
+                    <span class="tag">Communication</span>
+                    <h3>RoboFusion 1.0 Executive Member</h3>
+                    <p class="muted">UFTB Robotics Club</p>
+                    <a class="view-cert" href="assets/achievements/RoboFusion 1.0_exm.jpg" target="_blank">
+                        View Certificate
+                        <img src="assets/icons/arrow_outward.png" alt="" aria-hidden="true">
+                    </a>
+                </div>
+
+                <div class="card card--cert">
+                    <div class="card__media">
                         <img src="assets/achievements/Wadhwani-Foundation-Certificate.jpg" alt="21st Century Employability Program certificate from Wadhwani Foundation" loading="lazy">
                     </div>
                     <span class="tag">Communication</span>
                     <h3>21st Century Employability Program</h3>
                     <p class="muted">Wadhwani Foundation</p>
-                    <a class="view-cert" href="#">
+                    <a class="view-cert" href="assets/achievements/Wadhwani-Foundation-Certificate.jpg" target="_blank">
                         View Certificate
                         <img src="assets/icons/arrow_outward.png" alt="" aria-hidden="true">
                     </a>
@@ -239,7 +323,7 @@
                     <span class="tag">Poster Competition</span>
                     <h3>SUB CSE Tech Carnival 2.6</h3>
                     <p class="muted">State University of Bangladesh Computing Club</p>
-                    <a class="view-cert" href="#">
+                    <a class="view-cert" href="assets/achievements/DataCanvas Poster Competition_SUB Computing Club.jpeg" target="_blank">
                         View Certificate
                         <img src="assets/icons/arrow_outward.png" alt="" aria-hidden="true">
                     </a>
@@ -252,7 +336,7 @@
                     <span class="tag">Robotics</span>
                     <h3>Robotics Camp — 2024</h3>
                     <p class="muted">Roboment R&amp;D Lab, Gazipur</p>
-                    <a class="view-cert" href="#">
+                    <a class="view-cert" href="assets/achievements/Robotics Camp 1st-stage.jpg" target="_blank">
                         View Certificate
                         <img src="assets/icons/arrow_outward.png" alt="" aria-hidden="true">
                     </a>
@@ -265,7 +349,7 @@
                     <span class="tag">Photography</span>
                     <h3>4th National Cultural Event</h3>
                     <p class="muted">Dreams The Way</p>
-                    <a class="view-cert" href="#">
+                    <a class="view-cert" href="assets/achievements/DOT_Photography.jpg" target="_blank">
                         View Certificate
                         <img src="assets/icons/arrow_outward.png" alt="" aria-hidden="true">
                     </a>
@@ -278,7 +362,7 @@
                     <span class="tag">Cyber Security</span>
                     <h3>Cyber Hygiene Training Course</h3>
                     <p class="muted">The Asia Foundation &amp; SAJIDA Foundation</p>
-                    <a class="view-cert" href="#">
+                    <a class="view-cert" href="assets/achievements/sajid_ahmed_rahi_cyber_hygiene_119749_page-0001.jpg" target="_blank">
                         View Certificate
                         <img src="assets/icons/arrow_outward.png" alt="" aria-hidden="true">
                     </a>
@@ -398,5 +482,8 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="projects.js"></script>
+    <script src="scene.js"></script>
+    <script src="boot.js"></script>
 </body>
 </html>

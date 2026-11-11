@@ -686,3 +686,100 @@ html.js .card.is-visible{ animation: bounce 1s var(--ease); }
     .bg-fx__cursor{ display: none !important; }
 }
 
+
+/* ============================================================
+   WORKS — 2-column project board.
+   Shows 2 rows (4 cards) at first; anything beyond that scrolls
+   inside the board, so the page itself never grows.
+   ============================================================ */
+#works{ --project-h: 208px; }
+
+.project-count{
+    font-family: var(--font-display);
+    font-size: .78rem;
+    color: var(--text-tertiary);
+}
+
+.project-board{ position: relative; }
+.project-board.has-more .project-scroller{
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 56px), transparent);
+    mask-image: linear-gradient(to bottom, #000 calc(100% - 56px), transparent);
+}
+
+.project-scroller{
+    --pad: 12px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: var(--project-h);
+    gap: var(--space-3);
+    /* 2 rows + a 40px sliver of the 3rd row, which tells people there is more */
+    max-height: calc(var(--project-h) * 2 + var(--space-3) + var(--pad) * 2 + 40px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: var(--pad);
+    margin: calc(var(--pad) * -1);
+    scroll-snap-type: y proximity;
+    scroll-padding-top: var(--pad);
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-bright) transparent;
+}
+.project-scroller::-webkit-scrollbar{ width: 6px; }
+.project-scroller::-webkit-scrollbar-thumb{ background: var(--line-bright); border-radius: 6px; }
+.project-scroller::-webkit-scrollbar-thumb:hover{ background: var(--cyan); }
+
+.project{
+    flex-direction: row;
+    gap: 0;
+    padding: 0;
+    min-width: 0;
+    overflow: hidden;
+    scroll-snap-align: start;
+}
+.project:hover{ box-shadow: 0 0 0 1px rgba(110, 231, 216, .25), 0 10px 24px rgba(110, 231, 216, .08); }
+
+.project__media{
+    position: relative;
+    flex: 0 0 36%;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background: repeating-linear-gradient(135deg, var(--panel-2) 0 10px, var(--panel) 10px 20px);
+    border-right: 1px solid var(--line);
+}
+.project__media::before{ content: 'no preview'; font: .7rem var(--font-display); color: var(--text-tertiary); }
+.project__media img{ position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+.project__body{
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    padding: var(--space-3);
+    overflow: hidden;
+}
+.project__body h3{ font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.project .project__desc{
+    margin: 0;
+    max-width: none;
+    font-size: .85rem;
+    color: var(--text-secondary);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.project .tag-list{ margin-top: 0; flex-wrap: nowrap; overflow: hidden; }
+.project .tag-list li{ flex-shrink: 0; white-space: nowrap; }
+.project__links{ display: flex; gap: var(--space-3); margin-top: auto; }
+.project__links .view-cert{ margin-top: 0; }
+
+@media (max-width: 760px){
+    #works{ --project-h: auto; }
+    .project-scroller{ grid-template-columns: 1fr; grid-auto-rows: auto; max-height: 78vh; }
+    .project{ min-height: 180px; }
+}
+@media (max-width: 520px){
+    .project{ flex-direction: column; }
+    .project__media{ flex: 0 0 140px; border-right: 0; border-bottom: 1px solid var(--line); }
+}

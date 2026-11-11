@@ -1,0 +1,235 @@
+/* ============================================================
+   BOOT + LIVE BUILD — loads after style.css / animations.css.
+   Uses the site's tokens (--cyan, --void, --font-display ...).
+   Everything here is inert unless html.booting / html.dev is set.
+   ============================================================ */
+
+/* ---------- 1. Boot screen ---------- */
+.boot{ display: none; position: fixed; inset: 0; z-index: 20000; font-family: var(--font-display); }
+html.booting .boot{ display: block; }
+html.booting{ overflow: hidden; }
+
+.boot__half{ position: absolute; left: 0; right: 0; height: 50.2%; background: #000;
+    transition: transform .85s cubic-bezier(.7, 0, .2, 1) .25s; }
+.boot__half--top{ top: 0; box-shadow: 0 1px 0 var(--cyan), 0 0 40px rgba(110,231,216,.35); }
+.boot__half--bottom{ bottom: 0; box-shadow: 0 -1px 0 var(--cyan), 0 0 40px rgba(110,231,216,.35); }
+.boot.is-leaving .boot__half--top{ transform: translateY(-101%); }
+.boot.is-leaving .boot__half--bottom{ transform: translateY(101%); }
+
+.boot::after{ content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 5;
+    background: repeating-linear-gradient(0deg, rgba(255,255,255,.03) 0 1px, transparent 1px 3px);
+    transition: opacity .3s; }
+.boot.is-leaving::after{ opacity: 0; }
+
+.boot__win{ position: absolute; z-index: 2; left: 50%; top: 50%; width: min(560px, 92vw);
+    translate: -50% -50%; opacity: 0; background: var(--panel); border: 1px solid var(--line-bright);
+    border-radius: var(--radius-m); box-shadow: var(--glow-cyan), 0 30px 80px rgba(0,0,0,.6);
+    overflow: hidden; transition: opacity .25s, scale .3s; }
+.boot__win.is-open{ animation: boot-pop .55s cubic-bezier(.2, 1.3, .4, 1) forwards; }
+.boot.is-leaving .boot__win{ opacity: 0; scale: 1.05; animation: none; }
+
+.boot__title{ display: flex; align-items: center; gap: .4rem; padding: .7rem 1rem;
+    border-bottom: 1px solid var(--line); font-size: .72rem; color: var(--text-tertiary); }
+.boot__title i{ width: 9px; height: 9px; border-radius: 50%; background: var(--line-bright); }
+.boot__title i:first-child{ background: var(--amber); }
+.boot__title i:nth-child(2){ background: var(--violet); }
+.boot__title i:nth-child(3){ background: var(--cyan); }
+.boot__title span{ margin-left: .6rem; }
+
+.boot__body{ padding: 1.1rem 1.2rem .6rem; min-height: 15.5rem; font-size: .76rem; line-height: 1.85; color: var(--text-secondary); }
+.boot__logo{ font-size: 1.5rem; font-weight: 700; color: var(--text-primary); letter-spacing: -.01em; margin-bottom: .5rem; }
+.boot__logo span{ color: var(--cyan); }
+.boot__logo small{ font-size: .7rem; color: var(--text-tertiary); font-weight: 400; margin-left: .6rem; }
+.boot__line{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; animation: boot-line .15s steps(3) backwards; }
+.boot__line .ok{ color: var(--cyan); }
+.boot__line .dim{ color: var(--text-tertiary); margin-left: .5em; }
+.boot__line .cmd{ color: var(--violet); }
+
+.boot__prog{ height: 3px; margin: .4rem 1.2rem 1.2rem; background: var(--line); border-radius: 3px; overflow: hidden; }
+.boot__prog span{ display: block; height: 100%; width: 0; background: var(--cyan); box-shadow: var(--glow-cyan); transition: width .25s var(--ease); }
+
+.boot__hint{ position: absolute; z-index: 2; bottom: 1.4rem; left: 0; right: 0; text-align: center;
+    font-size: .7rem; color: var(--text-tertiary); letter-spacing: .04em; }
+
+@keyframes boot-pop{
+    0%{ opacity: 0; scale: .82; translate: -50% -46%; filter: brightness(2.5); }
+    60%{ opacity: 1; scale: 1.02; filter: none; }
+    100%{ opacity: 1; scale: 1; translate: -50% -50%; }
+}
+@keyframes boot-line{ from{ opacity: 0; translate: -6px 0; } }
+
+/* ---------- 2. Live build — only when JS enables html.dev ---------- */
+/* neutralise the old fade/bounce; elements are now revealed by boot.js */
+html.js.dev .jsanimate,
+html.js.dev .jsanimate.is-visible{ opacity: 1; transform: none; transition: none; }
+html.js.dev .heading-animate.is-visible,
+html.js.dev .btn.is-visible,
+html.js.dev .card.is-visible{ animation: none; }
+
+.dev-pre{ opacity: 0 !important; pointer-events: none; }
+
+/* typed text — ghost keeps the final layout so nothing jumps */
+.tw-ghost{ visibility: hidden; }
+.tw-fx{ color: var(--cyan); -webkit-text-fill-color: var(--cyan); opacity: .75; }
+.tw-caret{ display: inline-block; width: 0; position: relative; }
+.tw-caret::after{ content: ''; position: absolute; left: 0; top: .12em; width: .55ch; height: 1em;
+    background: var(--cyan); -webkit-text-fill-color: initial; animation: blink .5s step-end infinite; }
+
+/* wireframe stage for cards / portraits, then "compiled" flash */
+.dev-wire{ position: relative; background: transparent !important; border-color: transparent !important;
+    box-shadow: none !important; outline: 1px dashed rgba(110,231,216,.55); outline-offset: -1px; }
+.dev-wire::before{ content: attr(data-dev); position: absolute; z-index: 2; top: .5rem; left: .7rem;
+    font: 500 .62rem var(--font-display); letter-spacing: .03em; color: var(--cyan);
+    background: var(--cyan-dim); padding: .15em .5em; border-radius: 4px; white-space: nowrap; }
+.dev-flash{ animation: dev-flash .8s ease-out; }
+.dev-pop{ animation: dev-pop .35s cubic-bezier(.2, 1.4, .4, 1) backwards; }
+.dev-scan{ animation: dev-scan .55s cubic-bezier(.3, 0, .2, 1) backwards; }
+.dev-hmr{ animation: dev-hmr .9s ease-out; }
+
+@keyframes dev-flash{ 0%{ box-shadow: 0 0 0 1px var(--cyan), 0 0 40px rgba(110,231,216,.35); } 100%{ box-shadow: 0 0 0 1px transparent, 0 0 0 transparent; } }
+@keyframes dev-pop{ from{ opacity: 0; scale: .7; filter: blur(4px); } }
+@keyframes dev-scan{ from{ clip-path: inset(0 0 100% 0); filter: brightness(2.4) saturate(0); } }
+@keyframes dev-hmr{
+    0%, 100%{ outline: 1px solid transparent; }
+    12%{ outline: 1px solid var(--cyan); outline-offset: 5px; translate: -3px 0; filter: hue-rotate(50deg); }
+    30%{ translate: 3px 0; }
+    50%{ translate: 0 0; filter: none; outline-color: var(--cyan); }
+    85%{ outline-color: rgba(110,231,216,.2); outline-offset: 5px; }
+}
+
+/* ---------- 3. Build HUD ---------- */
+.dev-hud{ position: fixed; z-index: 9000; left: 1rem; bottom: 1rem; width: min(320px, calc(100vw - 2rem));
+    font: 500 .68rem/1.6 var(--font-display); color: var(--text-secondary);
+    background: rgba(13,16,23,.86); backdrop-filter: blur(14px); border: 1px solid var(--line-bright);
+    border-radius: var(--radius-m); overflow: hidden; animation: dev-pop .4s var(--ease) backwards; }
+.dev-hud__bar{ display: flex; align-items: center; gap: .55rem; padding: .55rem .8rem; }
+.dev-hud__dot{ width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); animation: pulse-dot 2.4s ease-in-out infinite; }
+.dev-hud__state{ flex: 1; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dev-hud__btn{ font: inherit; color: var(--cyan); background: var(--cyan-dim); border: 1px solid rgba(110,231,216,.3);
+    border-radius: var(--radius-full); padding: .1em .8em; cursor: pointer; }
+.dev-hud__btn:hover{ background: rgba(110,231,216,.22); }
+.dev-hud__body{ display: grid; grid-template-rows: 1fr; transition: grid-template-rows .4s var(--ease); }
+.dev-hud__inner{ overflow: hidden; }
+.dev-hud.is-idle .dev-hud__body{ grid-template-rows: 0fr; }
+.dev-hud__log{ padding: 0 .8rem .4rem; height: 6.3em; display: flex; flex-direction: column; justify-content: flex-end; border-top: 1px solid var(--line); padding-top: .4rem; }
+.dev-hud__log div{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; animation: boot-line .2s backwards; }
+.dev-hud__log .t{ color: var(--text-tertiary); margin-right: .5em; }
+.dev-hud__log .g{ color: var(--cyan); }
+.dev-hud__log .v{ color: var(--violet); }
+.dev-hud__stats{ display: flex; justify-content: space-between; padding: 0 .8rem .4rem; color: var(--text-tertiary); }
+.dev-hud__prog{ height: 2px; background: var(--line); }
+.dev-hud__prog i{ display: block; height: 100%; width: 0; background: var(--cyan); transition: width .3s var(--ease); }
+
+@media (max-width: 560px){
+    .dev-hud{ left: .6rem; bottom: .6rem; }
+    .dev-hud__log{ height: 3.2em; }
+}
+
+@media (prefers-reduced-motion: reduce){
+    .boot, .dev-hud{ display: none !important; }
+    .dev-pre{ opacity: 1 !important; }
+}
+
+/* ---------- 4. Boot scene: drone, robot, arm, chip, gears, traces ---------- */
+.boot__scene{ position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden;
+    background: radial-gradient(rgba(110,231,216,.09) 1px, transparent 1.2px) 0 0 / 28px 28px; transition: opacity .35s; }
+.boot.is-leaving .boot__scene{ opacity: 0; }
+.boot__scene svg, .site-bg svg{ display: block; width: 100%; height: auto; overflow: visible; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.boot__scene .c, .site-bg .c{ stroke: var(--cyan); }
+.boot__scene .v, .site-bg .v{ stroke: var(--violet); }
+.boot__scene .a, .site-bg .a{ stroke: var(--amber); }
+.boot__scene .fc, .site-bg .fc{ fill: var(--cyan); stroke: none; }
+.boot__scene .fa, .site-bg .fa{ fill: var(--amber); stroke: none; }
+.boot__scene .fcore, .site-bg .fcore{ fill: var(--cyan); stroke: var(--cyan); }
+.boot__scene .traces, .site-bg .traces{ position: absolute; inset: 0; width: 100%; height: 100%; }
+.boot__scene .tr, .site-bg .tr{ stroke: var(--cyan); opacity: .35; stroke-dasharray: 1; stroke-dashoffset: 1; animation: bs-draw 1.7s ease-out var(--d, 0s) forwards; }
+.boot__scene .via, .site-bg .via{ stroke: var(--violet); opacity: .6; }
+
+.bs{ position: absolute; opacity: 0; animation: bs-in .7s ease-out var(--d, 0s) forwards; }
+.bs-drone{ position: absolute; top: 11%; left: 0; width: clamp(96px, 11vw, 150px); translate: -22vw 0;
+    animation: bs-fly 5.8s linear .3s forwards; }
+.bs-drone svg{ animation: bs-bob 1.4s ease-in-out infinite alternate; }
+.bs-cap{ display: block; text-align: center; font: 500 .62rem var(--font-display); color: var(--cyan); margin-top: -.2rem; }
+.bs-robot{ position: absolute; left: 5%; bottom: 0; width: clamp(90px, 10vw, 140px); translate: 0 105%;
+    animation: bs-rise .9s cubic-bezier(.2, 1.2, .4, 1) 1.2s forwards; }
+.bs-say{ left: calc(5% + clamp(84px, 9.5vw, 134px)); bottom: clamp(70px, 9vw, 120px); --d: 2.3s;
+    font: 500 .7rem var(--font-display); color: var(--cyan); border: 1px solid rgba(110,231,216,.4);
+    background: var(--cyan-dim); padding: .3em .9em; border-radius: 12px 12px 12px 2px; }
+.bs-arm{ right: 6%; bottom: 0; width: clamp(100px, 11vw, 150px); --d: 1s; }
+.bs-chip{ right: 9%; top: 22%; width: clamp(90px, 10vw, 130px); --d: .8s; }
+.bs-wifi{ right: 11%; top: 9%; width: clamp(54px, 5vw, 72px); --d: 1.3s; }
+.bs-gears{ left: 9%; top: 30%; display: flex; align-items: flex-start; --d: .9s; }
+.bs-gears svg:first-child{ width: clamp(48px, 5vw, 68px); }
+.bs-gears svg:last-child{ width: clamp(30px, 3.2vw, 44px); margin: 1.6rem 0 0 -.45rem; }
+.bs-tag{ font: 500 .62rem var(--font-display); color: var(--text-tertiary); border: 1px solid var(--line-bright);
+    border-radius: var(--radius-full); padding: .1em .75em; background: rgba(13,16,23,.7); white-space: nowrap; }
+.bs-t1{ left: 8%; top: 46%; --d: 1.6s; }
+.bs-t2{ right: 8%; top: 41%; --d: 1.8s; }
+.bs-t3{ right: 7%; bottom: 26%; --d: 2s; }
+
+.spin{ transform-box: fill-box; transform-origin: center; animation: bs-spin 8s linear infinite; }
+.spin.rev{ animation-direction: reverse; animation-duration: 5s; }
+.prop{ transform-box: fill-box; transform-origin: center; animation: bs-prop .09s linear infinite alternate; }
+.pulse{ animation: bs-pulse 1.6s ease-in-out infinite; }
+.eye{ transform-box: fill-box; transform-origin: center; animation: bs-eye 3.2s 2s infinite; }
+.wave{ transform-origin: 86px 88px; animation: bs-wave .7s 2s ease-in-out infinite alternate; }
+.a1{ transform-origin: 70px 118px; animation: bs-a1 5s ease-in-out infinite alternate; }
+.a2{ transform-origin: 70px 66px; animation: bs-a2 3.4s ease-in-out infinite alternate; }
+.w{ animation: bs-wifi 1.8s ease-in-out infinite; }
+.w2{ animation-delay: .2s; } .w1{ animation-delay: .4s; }
+.bs .blink, .bs-drone .blink{ animation: blink 1s step-end infinite; }
+
+@keyframes bs-in{ from{ opacity: 0; translate: 0 10px; } to{ opacity: 1; translate: 0 0; } }
+@keyframes bs-draw{ to{ stroke-dashoffset: 0; } }
+@keyframes bs-fly{ from{ translate: -22vw 6vh; } to{ translate: 112vw -4vh; } }
+@keyframes bs-bob{ from{ transform: translateY(-4px) rotate(2deg); } to{ transform: translateY(5px) rotate(5deg); } }
+@keyframes bs-rise{ to{ translate: 0 14%; } }
+@keyframes bs-spin{ to{ rotate: 360deg; } }
+@keyframes bs-prop{ from{ scale: .5 1; } to{ scale: 1 1; } }
+@keyframes bs-pulse{ 0%, 100%{ fill-opacity: .1; } 50%{ fill-opacity: .55; } }
+@keyframes bs-eye{ 0%, 92%, 100%{ scale: 1 1; } 96%{ scale: 1 .1; } }
+@keyframes bs-wave{ from{ rotate: -8deg; } to{ rotate: 26deg; } }
+@keyframes bs-a1{ from{ rotate: -24deg; } to{ rotate: 20deg; } }
+@keyframes bs-a2{ from{ rotate: 38deg; } to{ rotate: -42deg; } }
+@keyframes bs-wifi{ 0%, 100%{ opacity: .15; } 40%{ opacity: 1; } }
+
+@media (max-width: 700px){
+    .bs-arm, .bs-chip, .bs-wifi, .bs-gears, .bs-tag, .bs-say{ display: none; }
+    .bs-robot{ left: 2%; }
+}
+
+/* ---------- 5. Site background (same artwork, quieter) ---------- */
+.site-bg{ position: fixed; inset: 0; z-index: -999; pointer-events: none; overflow: hidden; opacity: 0; transition: opacity 1.6s ease;
+    background: radial-gradient(rgba(110,231,216,.06) 1px, transparent 1.2px) 0 0 / 30px 30px; }
+.site-bg.is-on{ opacity: 1; }
+.site-bg::after{ content: ''; position: absolute; inset: 0; /* calm centre so text stays readable */
+    background: radial-gradient(ellipse 60% 70% at 50% 50%, rgba(5,6,10,.6), transparent 75%); }
+.site-bg .traces{ opacity: .6; }
+.site-bg .tr{ opacity: .2; }
+.site-bg .via{ opacity: .35; }
+.site-bg .bs, .site-bg .bs-drone, .site-bg .bs-robot{ opacity: var(--o, .3); }
+.site-bg .bs{ animation: sb-in 1.4s ease-out var(--d, 0s) backwards; }
+
+.site-bg .bs-drone{ top: 15%; --o: .38; animation: sb-fly 34s linear 1.5s infinite; }
+.site-bg .sb-d2{ top: 70%; width: clamp(60px, 6.5vw, 96px); --o: .22; animation: sb-fly-back 48s linear -16s infinite; }
+.site-bg .bs-robot{ left: 3%; width: clamp(78px, 8vw, 118px); --o: .42; animation: bs-rise .9s cubic-bezier(.2, 1.2, .4, 1) 1.4s forwards; }
+.site-bg .bs-arm{ right: 3%; --o: .36; --d: 1.8s; }
+.site-bg .bs-chip{ right: 4%; top: 24%; --o: .3; translate: 0 calc(sin(var(--sy, 0) * .0025rad) * 50px); }
+.site-bg .bs-wifi{ right: 16%; top: 10%; --o: .32; translate: 0 calc(sin(var(--sy, 0) * .0035rad) * -34px); }
+.site-bg .bs-gears{ left: 3%; top: 38%; --o: .32; translate: 0 calc(sin(var(--sy, 0) * .003rad) * 44px); }
+.site-bg .bs-chip svg, .site-bg .bs-wifi svg{ animation: sb-float 7s ease-in-out infinite alternate; }
+
+@keyframes sb-in{ from{ opacity: 0; } }
+@keyframes sb-fly{ from{ translate: -22vw 4vh; } to{ translate: 112vw -6vh; } }
+@keyframes sb-fly-back{ from{ translate: 112vw 0; } to{ translate: -22vw -5vh; } }
+@keyframes sb-float{ from{ transform: translateY(-6px); } to{ transform: translateY(8px) rotate(2deg); } }
+
+@media (prefers-reduced-motion: reduce){
+    .site-bg *{ animation: none !important; }
+    .site-bg .tr{ stroke-dashoffset: 0; }
+    .site-bg .traces circle:not(.via), .site-bg .bs-drone{ display: none; }
+    .site-bg .bs-robot{ translate: 0 14%; }
+}
+
+/* project/cert media stays hidden during the wireframe stage */
+.dev-wire .project__media, .dev-wire .card__media{ visibility: hidden; }
