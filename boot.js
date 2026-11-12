@@ -1,17 +1,16 @@
 /* ============================================================
    BOOT + LIVE BUILD
    1. black screen -> popup window -> system boot log
-   2. shutters open -> the page "compiles" itself:
+   2. the boot screen glitches out (RGB-split slices, jitter,
+      flicker) and the page "compiles" itself underneath:
       text is typed, cards appear as wireframes then render,
       images decode with a scan.
    3. sections below the fold are built when you scroll to them
-   4. a HUD streams the build log and keeps the site feeling live
    ============================================================ */
 (() => {
   const CONFIG = {
     alwaysPlay: true,   // false = full boot once per browser session, instant afterwards
     speed: 2,           // 1 = normal, 2 = twice as fast, 0.5 = slower
-    hud: true,          // build log in the bottom-left corner
     hmr: true,          // occasional "hot reload" flicker on a random element
   };
 
@@ -31,9 +30,8 @@
   const BOXES = '.card, .storycard, .hero-image';
   const UNITS = MEDIA + ',' + TEXT;
 
-  let skipped = false, busy = 0, built = 0, total = 0, loc = 0, committed = false;
+  let skipped = false, busy = 0;
   const waiters = new Set();
-  const t0 = performance.now();
   const $ = (s, r = document) => r.querySelector(s);
 
   const wait = ms => new Promise(res => {
@@ -42,67 +40,6 @@
     const t = setTimeout(fin, ms / CONFIG.speed);
     waiters.add(fin);
   });
-
-  /* ---------- HUD ---------- */
-  let hud, hudLog, hudState, hudBtn, hudLoc, hudPct, hudBar, idleTimer;
-
-  function makeHud() {
-    if (!CONFIG.hud) return;
-    hud = document.createElement('aside');
-    hud.className = 'dev-hud';
-    hud.innerHTML =
-      '<div class="dev-hud__bar"><span class="dev-hud__dot"></span><span class="dev-hud__state">compiling…</span>' +
-      '<button class="dev-hud__btn" type="button" aria-label="Skip the build animation">skip</button></div>' +
-      '<div class="dev-hud__body"><div class="dev-hud__inner"><div class="dev-hud__log" aria-hidden="true"></div>' +
-      '<div class="dev-hud__stats" aria-hidden="true"><span class="loc">0 loc</span><span class="pct">0%</span></div>' +
-      '<div class="dev-hud__prog"><i></i></div></div></div>';
-    document.body.appendChild(hud);
-    hudLog = $('.dev-hud__log', hud); hudState = $('.dev-hud__state', hud); hudBtn = $('.dev-hud__btn', hud);
-    hudLoc = $('.loc', hud); hudPct = $('.pct', hud); hudBar = $('.dev-hud__prog i', hud);
-    hudBtn.addEventListener('click', () => {
-      if (busy > 0 || !committed) skipAll();
-      else { try { sessionStorage.removeItem('sr-booted'); } catch {} scrollTo(0, 0); location.reload(); }
-    });
-  }
-
-  function log(msg, cls = 'g') {
-    if (!hud) return;
-    const row = document.createElement('div');
-    row.innerHTML = '<span class="t">' + ((performance.now() - t0) / 1000).toFixed(1) + 's</span><span class="' + cls + '"></span>';
-    row.lastChild.textContent = msg;
-    hudLog.appendChild(row);
-    while (hudLog.children.length > 5) hudLog.firstChild.remove();
-    hud.classList.remove('is-idle');
-    hudState.textContent = 'compiling…';
-    hudBtn.textContent = 'skip';
-    clearTimeout(idleTimer);
-    idleTimer = setTimeout(goIdle, 3200);
-  }
-
-  function goIdle() {
-    if (!hud || busy > 0) { idleTimer = setTimeout(goIdle, 1000); return; }
-    hud.classList.add('is-idle');
-    hudBtn.textContent = 'replay';
-    pingState();
-  }
-
-  function pingState() {
-    if (hudState && hud.classList.contains('is-idle'))
-      hudState.textContent = '● live · ' + (18 + Math.floor(Math.random() * 24)) + ' ms';
-  }
-
-  function stats(add = 0) {
-    loc += add;
-    if (!hud) return;
-    hudLoc.textContent = loc.toLocaleString() + ' loc';
-    const p = Math.min(100, Math.round(built / Math.max(1, total) * 100));
-    hudPct.textContent = p + '%';
-    hudBar.style.width = p + '%';
-    if (!committed && built >= total && total > 0) {
-      committed = true;
-      log('git commit -m "portfolio: build complete"', 'v');
-    }
-  }
 
   const label = el => '<' + el.tagName.toLowerCase() + (el.classList[0] ? '.' + el.classList[0] : '') + '>';
 
@@ -153,11 +90,14 @@
         }
       };
       const finish = () => { parts.forEach(p => p.wrap.replaceWith(p.node)); caret.remove(); res(); };
+      let lastN = -1;
       const tick = now => {
         if (skipped) return finish();
         const n = Math.floor(Math.min(1, (now - t) / dur) * L);
         if (n >= L) return finish();
-        draw(n); requestAnimationFrame(tick);
+        draw(n);
+        if (n !== lastN) { lastN = n; if (window.SRSound && n % 2 === 0) SRSound.key(); }
+        requestAnimationFrame(tick);
       };
       requestAnimationFrame(tick);
     });
@@ -166,16 +106,13 @@
   /* ---------- Builders ---------- */
   async function build(el) {
     if (el._built) return;
-    el._built = true; built++;
+    el._built = true;
     el.classList.remove('dev-pre');
-    if (skipped) return stats();
+    if (skipped) return;
     busy++;
-    stats(Math.ceil((el.textContent.length || 40) / 8) + 2);
     if (el.matches(MEDIA)) {
-      log('decode ' + label(el));
       el.classList.add('dev-scan'); await wait(560); el.classList.remove('dev-scan');
     } else {
-      log('+ ' + label(el) + ' ' + el.textContent.trim().slice(0, 18));
       if (el.matches(POP)) el.classList.add('dev-pop');
       await typeText(el);
       el.classList.remove('dev-pop');
@@ -190,14 +127,12 @@
       const r = box.getBoundingClientRect();
       box.dataset.dev = label(box) + ' ' + Math.round(r.width) + '×' + Math.round(r.height);
       box.classList.add('dev-wire');
-      log('layout ' + label(box), 'v');
       await wait(330);
       box.classList.remove('dev-wire');
       box.classList.add('dev-flash');
       busy--;
     }
     for (const u of units) await build(u);
-    built++; stats();
     box.classList.remove('dev-flash');
   }
 
@@ -211,7 +146,6 @@
       const b = u.closest(BOXES);
       (b && groups.has(b) ? groups.get(b) : loose).push(u);
     });
-    if (sec.id) log('mount #' + sec.id, 'v');
     const tracks = boxes.map((b, i) => runBox(b, groups.get(b), Math.min(200 + i * 170, 1400)));
     for (const u of loose) await build(u);
     await Promise.all(tracks);
@@ -222,7 +156,6 @@
     waiters.forEach(f => f());
     document.querySelectorAll('main > section, footer, #site-header').forEach(buildSection);
     finishBoot();
-    if (hud) hud.style.display = '';
     startLive();
   }
 
@@ -245,12 +178,44 @@
   let bootEl;
   let bootDone = false;
 
+  /* Glitch-out: the black backdrop is swapped for random horizontal
+     slices. Each slice jitters sideways, flashes a signal colour and
+     blinks out at its own moment, so the page shows through in torn
+     patches instead of a clean wipe. All motion lives in boot.css. */
+  function glitchOut(quick) {
+    const bg = $('.boot__bg', bootEl);
+    if (!bg) return;
+    const COUNT = 16, HOT = ['var(--cyan)', 'var(--violet)', '#ffffff'];
+    const weights = Array.from({ length: COUNT }, () => 0.4 + Math.random());
+    const sum = weights.reduce((a, b) => a + b, 0);
+    const maxDelay = quick ? 0.2 : 0.45;
+    const frag = document.createDocumentFragment();
+    let y = 0;
+    weights.forEach(w => {
+      const h = w / sum * 100;
+      const s = document.createElement('i');
+      s.className = 'boot__strip';
+      s.style.cssText =
+        'top:' + y.toFixed(2) + '%;height:' + (h + 0.3).toFixed(2) + '%;' +
+        '--dx:' + ((Math.random() * 2 - 1) * (8 + Math.random() * 14)).toFixed(1) + 'vw;' +
+        '--t:' + (Math.random() * maxDelay).toFixed(2) + 's;' +
+        '--dur:' + (quick ? 0.3 : 0.45) + 's;' +
+        '--hot:' + HOT[Math.floor(Math.random() * HOT.length)] + ';';
+      frag.appendChild(s);
+      y += h;
+    });
+    bootEl.insertBefore(frag, bg);
+    bg.remove();   // same frame: strips are black too, so nothing visibly changes yet
+  }
+
   function finishBoot() {
     if (bootDone) return;
     bootDone = true;
     setTimeout(() => clearInterval(sceneTimer), 600);
+    glitchOut(skipped);
+    window.SRSound && SRSound.play('glitch');
     bootEl.classList.add('is-leaving');
-    setTimeout(() => { bootEl.remove(); root.classList.remove('booting'); }, skipped ? 500 : 1100);
+    setTimeout(() => { bootEl.remove(); root.classList.remove('booting'); }, skipped ? 700 : 1000);
   }
 
   async function runBoot() {
@@ -258,16 +223,19 @@
     const add = html => { const d = document.createElement('div'); d.className = 'boot__line'; d.innerHTML = html; body.appendChild(d); };
     await wait(650);                                   // blank screen
     win.classList.add('is-open');                      // popup
+    window.SRSound && SRSound.play('open');
     await wait(550);
     for (let i = 0; i < LINES.length; i++) {
       add('<span class="ok">[ OK ]</span> ' + LINES[i][0] + '<span class="dim">' + LINES[i][1] + '</span>');
       bar.style.width = Math.round((i + 1) / (LINES.length + 1) * 100) + '%';
+      window.SRSound && SRSound.play('boot', i);
       await wait(170 + Math.random() * 150);
     }
     add('<span class="cmd">$ npm run dev</span>');
     await wait(380);
     add('<span class="ok">ready</span><span class="dim">compiled in 312 ms</span>');
     bar.style.width = '100%';
+    window.SRSound && SRSound.play('ready');
     await wait(520);
   }
 
@@ -275,7 +243,6 @@
   let live = false;
   function startLive() {
     if (live) return; live = true;
-    setInterval(pingState, 3000);
     if (!CONFIG.hmr) return;
     setInterval(() => {
       if (document.hidden || busy) return;
@@ -285,7 +252,6 @@
       });
       if (!pool.length) return;
       const el = pool[Math.floor(Math.random() * pool.length)];
-      log('[HMR] hot update ' + label(el), 'v');
       el.classList.add('dev-hmr');
       setTimeout(() => el.classList.remove('dev-hmr'), 950);
     }, 16000);
@@ -301,21 +267,15 @@
     scrollTo(0, 0);
     root.classList.add('dev');
 
-    const units = document.querySelectorAll(UNITS);
-    units.forEach(u => u.classList.add('dev-pre'));
-    total = units.length + document.querySelectorAll(BOXES).length;
+    document.querySelectorAll(UNITS).forEach(u => u.classList.add('dev-pre'));
 
     const skip = () => { if (!skipped) skipAll(); };
     bootEl.addEventListener('click', skip);
-    addEventListener('keydown', e => { if (e.key === 'Escape' || bootEl.isConnected) skip(); }, { once: false });
-
-    makeHud();
-    if (hud) hud.style.display = 'none';
+    addEventListener('keydown', e => { if (e.key === 'Escape' || bootEl.isConnected) skip(); });
 
     runBoot().then(() => {
       if (skipped) return;
       finishBoot();
-      if (hud) hud.style.display = '';
       buildSection($('#site-header'));
       const io = new IntersectionObserver(es => es.forEach(e => {
         if (e.isIntersecting) { io.unobserve(e.target); buildSection(e.target); }

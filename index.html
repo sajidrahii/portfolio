@@ -11,27 +11,38 @@
             }
         })();
     </script>
+    <script>
+        /* theme: set before first paint so there is no flash. pref = light | dark | system */
+        (function(){
+            var d = document.documentElement, p = 'system';
+            try { var v = localStorage.getItem('sr-theme'); if (v === 'light' || v === 'dark') p = v; } catch (e) {}
+            d.setAttribute('data-theme-pref', p);
+            d.setAttribute('data-theme', p === 'system' ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : p);
+        })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Sajid Rahi — IoT & Robotics Engineer and Embedded Systems Designer. Portfolio, skills, certifications and story.">
     <meta name="theme-color" content="#05060A">
     <title>Sajid Rahi | IoT & Robotics Engineer</title>
+    <link rel="shortcut icon" href="assets/PDP01.png" type="image/x-icon">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="animations.css">
     <link rel="stylesheet" href="boot.css">
+    <link rel="stylesheet" href="features.css">
 </head>
 <body>
 
     <div id="boot" class="boot" aria-hidden="true">
-        <div class="boot__half boot__half--top"></div>
-        <div class="boot__half boot__half--bottom"></div>
+        <div class="boot__bg"></div>
         <div class="boot__win">
             <div class="boot__title"><i></i><i></i><i></i><span>sajid.portfolio: boot</span></div>
             <div class="boot__body"><p class="boot__logo">SAJID<span> RAHI</span><small>v2</small></p></div>
             <div class="boot__prog"><span id="bootBar"></span></div>
         </div>
+        <button type="button" class="boot__sound" id="bootSound" tabindex="-1" aria-pressed="false">sound: off</button>
         <p class="boot__hint">Click or press any key to skip</p>
     </div>
 
@@ -59,6 +70,7 @@
                     <a href="#about">About</a>
                     <a href="#skills">Skills</a>
                     <a href="#works">Works</a>
+                    <a href="#showcase">Showcase</a>
                     <a href="#certification">Certifications</a>
                     <a href="#story">Story</a>
                     <a href="#contact">Contact</a>
@@ -92,8 +104,7 @@
                     <h1 class="hero__name heading-animate" id="myname">Sajid Rahi<span class="cursor-blink" aria-hidden="true">_</span></h1>
 
                     <p class="hero__desc">
-                        I design embedded systems that solve real-world problems,
-                        combining IoT and robotics into products that work.
+                        ⚡I build systems that solve real world problems combining IoT, ML, Computer Vision & Robotics 🤖
                     </p>
 
                     <div class="hero__actions">
@@ -230,14 +241,14 @@
                 -->
                 <div class="project-scroller" tabindex="0" role="region" aria-label="Projects, scrollable list">
 
-                    </article>
                     <article class="card project">
                         <div class="project__media">
                             <!-- <img src="assets/projects/your-image.jpg" alt="Describe the image" loading="lazy"> -->
-                             <img src="assets/projects/Luscus.JPG" alt="Describe the image" loading="lazy">
+                             <img src="assets/projects/Luscus.JPG" alt="Luscus project preview" loading="lazy">
+                            <span class="project__badge" aria-hidden="true">Case study</span>
                         </div>
                         <div class="project__body">
-                            <h3>Luscus</h3>
+                            <h3><button type="button" class="case-open" data-case="luscus" aria-haspopup="dialog">Luscus</button></h3>
                             <p class="body-copy project__desc">A Computer Vision–Based Autonomous Navigation System Using ESP32-CAM and YOLO</p>
                             <ul class="tag-list"><li>Embedded System</li><li>Computer Vision</li></ul>
                             <div class="project__links">
@@ -251,10 +262,11 @@
                     <article class="card project">
                         <div class="project__media">
                             <!-- <img src="assets/projects/your-image.jpg" alt="Describe the image" loading="lazy"> -->
-                             <img src="assets/projects/Gontobbohin.jpg" alt="Describe the image" loading="lazy">
+                             <img src="assets/projects/Gontobbohin.jpg" alt="Gontobbohin project preview" loading="lazy">
+                            <span class="project__badge" aria-hidden="true">Case study</span>
                         </div>
                         <div class="project__body">
-                            <h3>Gontobbohin</h3>
+                            <h3><button type="button" class="case-open" data-case="gontobbohin" aria-haspopup="dialog">Gontobbohin</button></h3>
                             <p class="body-copy project__desc">A creative concept transforming Bangladesh’s 64 districts into an interactive journey.</p>
                             <ul class="tag-list"><li>Claude</li></ul>
                             <div class="project__links">
@@ -262,7 +274,98 @@
                                 <a class="view-cert" href="https://sajidrahii.github.io/gontobbohin/" target="_blank" rel="noopener">Live demo <img src="assets/icons/arrow_outward.png" alt="" aria-hidden="true"></a>
                             </div>
                         </div>
+                    </article>
 
+                </div>
+            </div>
+        </section>
+
+        <section id="showcase" class="section jsanimate">
+            <div class="section-header">
+                <p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>$ ls ./creative</p>
+                <div class="section-header__row">
+                    <h2 class="section-title">Design, motion &amp; photography</h2>
+                </div>
+            </div>
+
+            <!--
+                ADD YOUR FILES in assets/showcase/ using the names below (or change the paths here).
+                Anything missing shows a labelled placeholder, so nothing looks broken meanwhile.
+                  reel.mp4 · before-1.jpg · after-1.jpg · gallery/01.jpg … gallery/05.jpg
+                To add a gallery image, copy one whole <button class="shot"> block.
+                To add another before/after slider, copy a whole <div class="show__item show__item--ba"> block.
+            -->
+            <div class="show">
+                <div class="show__item show__item--reel">
+                    <div class="show__cap">
+                        <h3 class="show__title">Motion reel</h3>
+                        <span class="show__note">After Effects · Premiere Pro</span>
+                    </div>
+                    <div class="show__media reel" data-ph="Add assets/showcase/reel.mp4">
+                        <video data-reel muted loop playsinline preload="metadata" aria-label="Looping motion reel">
+                            <source src="assets/showcase/reel.mp4" type="video/mp4">
+                        </video>
+                        <button type="button" class="reel__btn" aria-pressed="false" aria-label="Play reel">
+                            <svg class="pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>
+                            <svg class="play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="show__item show__item--ba">
+                    <div class="show__cap">
+                        <h3 class="show__title">Retouch: before / after</h3>
+                        <span class="show__note">Photoshop · drag to compare</span>
+                    </div>
+                    <div class="show__media">
+                        <figure class="ba" data-ba>
+                            <div class="ba__layer ba__layer--before"><img src="assets/showcase/before-1.jpg" alt="Photo before retouching" loading="lazy" draggable="false"></div>
+                            <div class="ba__layer ba__layer--after"><img src="assets/showcase/after-1.jpg" alt="The same photo after retouching" loading="lazy" draggable="false"></div>
+                            <span class="ba__chip ba__chip--l">Before</span>
+                            <span class="ba__chip ba__chip--r">After</span>
+                            <span class="ba__handle" aria-hidden="true"></span>
+                            <input class="ba__range" type="range" min="0" max="100" step="1" value="50" aria-label="Drag to compare before and after">
+                        </figure>
+                    </div>
+                </div>
+
+                <div class="show__item show__item--gallery">
+                    <div class="show__cap">
+                        <h3 class="show__title">Gallery</h3>
+                        <span class="show__note">Click an image to open it</span>
+                    </div>
+                    <div class="gallery">
+                        <button type="button" class="shot shot--wide" data-full="assets/showcase/gallery/01.jpg" data-caption="Photography">
+                            <img src="assets/showcase/gallery/01.jpg" alt="Photography sample" loading="lazy">
+                            <span class="shot__cap">Photography</span>
+                        </button>
+                        <button type="button" class="shot" data-full="assets/showcase/gallery/02.jpg" data-caption="Photography">
+                            <img src="assets/showcase/gallery/02.jpg" alt="Photography sample" loading="lazy">
+                            <span class="shot__cap">Photography</span>
+                        </button>
+                        <button type="button" class="shot" data-full="assets/showcase/gallery/03.jpg" data-caption="Photography">
+                            <img src="assets/showcase/gallery/03.jpg" alt="Photography sample" loading="lazy">
+                            <span class="shot__cap">Photography</span>
+                        </button>
+                        <button type="button" class="shot" data-full="assets/showcase/gallery/04.jpg" data-caption="Photography">
+                            <img src="assets/showcase/gallery/04.jpg" alt="Photography sample" loading="lazy">
+                            <span class="shot__cap">Photography</span>
+                        </button>
+                        <button type="button" class="shot" data-full="assets/showcase/gallery/05.jpg" data-caption="Photography">
+                            <img src="assets/showcase/gallery/05.jpg" alt="Photography sample" loading="lazy">
+                            <span class="shot__cap">Photography</span>
+                        </button>
+
+                        <!-- <button type="button" class="shot" data-full="assets/showcase/gallery/04.jpg" data-caption="Graphic design">
+                            <img src="assets/showcase/gallery/04.jpg" alt="Graphic design sample 2" loading="lazy">
+                            <span class="shot__cap">Photography</span>
+                        </button>
+
+                        <button type="button" class="shot" data-full="assets/showcase/gallery/05.jpg" data-caption="Video frame">
+                            <img src="assets/showcase/gallery/05.jpg" alt="Video frame sample" loading="lazy">
+                            <span class="shot__cap">Video frame</span>
+                        </button> -->
+                    </div>
                 </div>
             </div>
         </section>
@@ -481,9 +584,32 @@
         <p>© 2026 Sajid Rahi. Built line by line.</p>
     </footer>
 
+    <div class="dock" role="group" aria-label="Display and sound settings">
+        <div class="dock__seg" role="group" aria-label="Colour theme">
+            <button type="button" class="dock__btn" data-theme-set="light" aria-pressed="false" aria-label="Light theme" title="Light">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+            </button>
+            <button type="button" class="dock__btn" data-theme-set="system" aria-pressed="true" aria-label="System theme" title="System">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>
+            </button>
+            <button type="button" class="dock__btn" data-theme-set="dark" aria-pressed="false" aria-label="Dark theme" title="Dark">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+            </button>
+        </div>
+        <span class="dock__sep" aria-hidden="true"></span>
+        <button type="button" class="dock__btn" id="soundToggle" aria-pressed="false" aria-label="Sound off. Click to turn on" title="Sound off">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path class="on" d="M16.5 9a4 4 0 0 1 0 6M19.5 6a8 8 0 0 1 0 12"/><path class="off" d="M17 9.5l5 5M22 9.5l-5 5"/></svg>
+        </button>
+    </div>
+
     <script src="script.js"></script>
     <script src="projects.js"></script>
     <script src="scene.js"></script>
+    <script src="sound.js"></script>
+    <script src="theme.js"></script>
+    <script src="drone.js"></script>
+    <script src="cases.js"></script>
+    <script src="showcase.js"></script>
     <script src="boot.js"></script>
 </body>
 </html>

@@ -408,7 +408,7 @@ html.js .card.is-visible{ animation: bounce 1s var(--ease); }
 }
 .nav__socials a:hover img{ transform: translateY(-2px); border-color: var(--violet); }
 
-@media (max-width: 1080px){
+@media (max-width: 1160px){
     .nav-toggle{ display: flex; }
 
     .nav__panel{
