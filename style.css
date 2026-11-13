@@ -325,9 +325,9 @@ html.js .card.is-visible{ animation: bounce 1s var(--ease); }
 }
 
 .site-header__inner{
-    max-width: var(--container);
+    max-width: 1320px;
     margin-inline: auto;
-    padding-inline: 6vw;
+    padding-inline: clamp(1.25rem, 3vw, 3rem);
     height: 76px;
     display: flex;
     align-items: center;
@@ -364,10 +364,12 @@ html.js .card.is-visible{ animation: bounce 1s var(--ease); }
 .nav__panel{
     display: flex;
     align-items: center;
-    gap: var(--space-5);
+    gap: var(--space-3);
 }
 
-.nav__links{ display: flex; gap: 2vw; }
+.nav__tools{ display: flex; align-items: center; gap: .75rem; flex-shrink: 0; }
+
+.nav__links{ display: flex; gap: clamp(.9rem, 1.4vw, 1.5rem); }
 
 .nav__links a{
     flex-shrink: 0;
@@ -408,7 +410,7 @@ html.js .card.is-visible{ animation: bounce 1s var(--ease); }
 }
 .nav__socials a:hover img{ transform: translateY(-2px); border-color: var(--violet); }
 
-@media (max-width: 1160px){
+@media (max-width: 1280px){
     .nav-toggle{ display: flex; }
 
     .nav__panel{
@@ -419,7 +421,7 @@ html.js .card.is-visible{ animation: bounce 1s var(--ease); }
         gap: var(--space-4);
         background: var(--panel);
         border-bottom: 1px solid var(--line);
-        padding: var(--space-4) 6vw var(--space-5);
+        padding: var(--space-4) clamp(1.25rem, 3vw, 3rem) var(--space-5);
         transform: translateY(-8px);
         opacity: 0;
         pointer-events: none;

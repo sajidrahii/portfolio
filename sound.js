@@ -131,7 +131,7 @@
     // a quiet tick on interactive things
     document.addEventListener('click', e => {
       if (!on) return;
-      if (e.target.closest('.btn, .pill-link, .view-cert, .nav__links a, .flow__node, .dock__seg button, .nav-toggle')) play('tick');
+      if (e.target.closest('.btn, .pill-link, .view-cert, .nav__links a, .flow__node, .theme-switch button, .nav-toggle')) play('tick');
     });
   }
 

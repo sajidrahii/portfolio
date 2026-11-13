@@ -121,8 +121,52 @@ html.theme-anim *::after{
 .boot.is-leaving .boot__sound{ opacity: 0; transition: opacity .1s; }
 
 /* ============================================================
-   2. DOCK — theme switch + sound toggle
+   2. THEME SWITCH (in the navbar) + DOCK (sound toggle)
    ============================================================ */
+.theme-switch{
+    --sz: 30px; --gap: 2px; --pad: 3px;
+    position: relative; display: flex; align-items: center; gap: var(--gap); padding: var(--pad);
+    background: var(--panel-2); border: 1px solid var(--line-bright); border-radius: var(--radius-full);
+    transition: opacity .6s var(--ease) .2s;
+}
+html.booting .theme-switch{ opacity: 0; pointer-events: none; }
+
+/* the sliding highlight: position follows data-theme-pref on <html>,
+   which the inline <head> script sets before first paint */
+.theme-switch__thumb{
+    position: absolute; z-index: 0; top: var(--pad); left: var(--pad);
+    width: var(--sz); height: var(--sz); border-radius: 50%;
+    background: var(--cyan-dim); border: 1px solid rgba(110, 231, 216, .45);
+    box-shadow: var(--glow-cyan);
+    transition: translate .38s cubic-bezier(.3, 1.4, .5, 1);
+}
+:root[data-theme-pref="system"] .theme-switch__thumb{ translate: calc((var(--sz) + var(--gap)) * 1) 0; }
+:root[data-theme-pref="dark"] .theme-switch__thumb{ translate: calc((var(--sz) + var(--gap)) * 2) 0; }
+:root[data-theme="light"] .theme-switch__thumb{ border-color: rgba(6, 122, 112, .45); }
+
+.theme-switch__btn{
+    position: relative; z-index: 1;
+    width: var(--sz); height: var(--sz); display: grid; place-items: center;
+    background: transparent; border: 0; border-radius: 50%;
+    color: var(--text-tertiary); cursor: pointer;
+    transition: color .2s var(--ease);
+}
+.theme-switch__btn svg{ width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.theme-switch__btn:hover{ color: var(--text-primary); }
+.theme-switch__btn[aria-pressed="true"]{ color: var(--cyan); }
+
+/* the colour cross-fade rule would otherwise cancel the thumb's slide */
+html.theme-anim .theme-switch__thumb{
+    transition: translate .38s cubic-bezier(.3, 1.4, .5, 1), background-color .35s ease, border-color .35s ease !important;
+}
+
+@media (max-width: 400px){
+    .theme-switch{ --sz: 26px; }
+    .theme-switch__btn svg{ width: 14px; height: 14px; }
+}
+@media (prefers-reduced-motion: reduce){
+    .theme-switch__thumb, html.theme-anim .theme-switch__thumb{ transition: none !important; }
+}
 .dock{
     position: fixed; z-index: 9000; right: 1rem; bottom: 1rem;
     display: flex; align-items: center; gap: .15rem; padding: .28rem;
@@ -132,9 +176,6 @@ html.theme-anim *::after{
     transition: opacity .6s var(--ease) .2s;
 }
 html.booting .dock{ opacity: 0; pointer-events: none; }
-
-.dock__seg{ display: flex; gap: .1rem; }
-.dock__sep{ width: 1px; height: 18px; background: var(--line-bright); margin-inline: .25rem; }
 
 .dock__btn{
     width: 32px; height: 32px; display: grid; place-items: center;
@@ -404,8 +445,9 @@ dialog.case::backdrop{ background: rgba(3, 4, 8, .66); -webkit-backdrop-filter: 
 /* before / after */
 .ba{
     --pos: 50;
-    position: absolute; inset: 0; overflow: hidden; touch-action: pan-y; cursor: ew-resize; user-select: none; -webkit-user-select: none;
+    position: absolute; inset: 0; overflow: hidden; touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none;
 }
+.ba.is-dragging{ cursor: grabbing; }
 .ba__layer{ position: absolute; inset: 0; }
 .ba__layer img{ width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
 .ba__layer--after{ clip-path: inset(0 0 0 calc(var(--pos) * 1%)); }
@@ -414,29 +456,69 @@ dialog.case::backdrop{ background: rgba(3, 4, 8, .66); -webkit-backdrop-filter: 
 .ba__layer--before.is-missing::after{ place-items: end start; text-align: left; padding: 1.2rem; }
 .ba__layer--after.is-missing::after{ place-items: end end; text-align: right; padding: 1.2rem; }
 
+/* side labels: a small dot says which side is which, and each label
+   fades out as the divider approaches so it never sits under the knob */
 .ba__chip{
-    position: absolute; z-index: 2; top: .8rem; padding: .25em .8em;
-    font: 500 .66rem var(--font-display); letter-spacing: .03em; color: var(--text-primary);
+    position: absolute; z-index: 2; top: .9rem; display: inline-flex; align-items: center; gap: .55em;
+    padding: .3em .85em .3em .7em;
+    font: 500 .68rem var(--font-display); letter-spacing: .02em; color: var(--text-secondary);
     background: var(--chip-bg); border: 1px solid var(--line-bright); border-radius: var(--radius-full);
-    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); pointer-events: none;
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); pointer-events: none;
 }
-.ba__chip--l{ left: .8rem; }
-.ba__chip--r{ right: .8rem; color: var(--cyan); }
+.ba__chip::before{ content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.ba__chip--l{ left: .9rem; opacity: clamp(0, calc((var(--pos) - 9) / 12), 1); }
+.ba__chip--r{ right: .9rem; color: var(--cyan); opacity: clamp(0, calc((91 - var(--pos)) / 12), 1); }
 
+/* divider line: fades at both ends, with a soft bloom onto the photo */
 .ba__handle{
-    position: absolute; z-index: 3; top: 0; bottom: 0; left: calc(var(--pos) * 1%); width: 2px;
-    background: var(--cyan); box-shadow: 0 0 12px var(--cyan); pointer-events: none; translate: -1px 0;
+    position: absolute; z-index: 3; top: 0; bottom: 0; left: calc(var(--pos) * 1%); width: 2px; translate: -1px 0;
+    background: linear-gradient(to bottom, transparent, var(--cyan) 14%, var(--cyan) 86%, transparent);
+    filter: drop-shadow(0 0 5px var(--cyan)); pointer-events: none;
+    transition: filter .25s var(--ease);
 }
-.ba__handle::after{
-    content: '‹ ›'; position: absolute; top: 50%; left: 50%; translate: -50% -50%;
-    width: 42px; height: 42px; display: grid; place-items: center;
-    font: 700 .85rem var(--font-display); letter-spacing: .1em; color: var(--void);
-    background: var(--cyan); border-radius: 50%; box-shadow: var(--glow-cyan);
-    transition: scale .2s var(--ease);
+.ba__handle::before{
+    content: ''; position: absolute; top: 0; bottom: 0; left: -34px; width: 70px;
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--cyan) 22%, transparent), transparent);
+    opacity: .55; transition: opacity .25s var(--ease);
 }
-.ba.is-dragging .ba__handle::after{ scale: 1.12; }
-.ba:focus-within .ba__handle::after{ outline: 2px solid var(--text-primary); outline-offset: 3px; }
+.ba:hover .ba__handle::before, .ba.is-dragging .ba__handle::before{ opacity: 1; }
+.ba.is-dragging .ba__handle{ filter: drop-shadow(0 0 9px var(--cyan)); }
+
+.ba__knob{
+    position: absolute; top: 50%; left: 50%; translate: -50% -50%;
+    width: 46px; height: 46px; display: grid; place-items: center; border-radius: 50%;
+    color: var(--cyan); background: var(--chip-bg);
+    border: 1.5px solid var(--cyan); box-shadow: var(--glow-cyan), 0 6px 18px rgba(0, 0, 0, .28);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    transition: scale .25s cubic-bezier(.3, 1.5, .5, 1), background .2s var(--ease), color .2s var(--ease);
+}
+.ba__knob svg{ width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.ba:hover .ba__knob{ scale: 1.08; }
+.ba.is-dragging .ba__knob{ scale: 1.16; background: var(--cyan); color: var(--void); }
+
+/* until someone touches it, a ring pulses out of the knob */
+.ba__knob::before{
+    content: ''; position: absolute; inset: -1.5px; border-radius: 50%;
+    border: 1.5px solid var(--cyan); opacity: 0; pointer-events: none;
+}
+.ba:not(.is-touched) .ba__knob::before{ animation: ba-ping 1.9s ease-out infinite; }
+@keyframes ba-ping{ 0%{ opacity: .85; scale: 1; } 100%{ opacity: 0; scale: 1.9; } }
+
+.ba__hint{
+    position: absolute; top: calc(50% + 36px); left: 50%; translate: -50% 0; white-space: nowrap;
+    font: 500 .66rem var(--font-display); letter-spacing: .02em; color: var(--cyan);
+    background: var(--chip-bg); border: 1px solid var(--line-bright); border-radius: var(--radius-full); padding: .25em .8em;
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    transition: opacity .35s var(--ease), translate .35s var(--ease);
+}
+.ba.is-touched .ba__hint{ opacity: 0; translate: -50% -6px; }
+
+.ba:focus-within .ba__knob{ outline: 2px solid var(--text-primary); outline-offset: 3px; }
 .ba__range{ position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; pointer-events: none; margin: 0; }
+
+@media (prefers-reduced-motion: reduce){
+    .ba:not(.is-touched) .ba__knob::before{ animation: none; }
+}
 
 /* gallery */
 .gallery{ display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: clamp(120px, 15vw, 190px); gap: var(--space-2); }

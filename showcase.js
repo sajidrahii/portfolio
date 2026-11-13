@@ -30,34 +30,51 @@
      Before / after slider
      Drag with mouse or finger; arrow keys work too (a real
      <input type="range"> sits underneath for keyboard + screen readers).
+     A click glides the divider to that spot instead of jumping, and the
+     idle pulse + hint disappear after the first touch (.is-touched).
      ------------------------------------------------------------ */
   document.querySelectorAll('[data-ba]').forEach(box => {
     const range = box.querySelector('.ba__range');
-    let pos = 50, dragging = false, sweep = 0, touched = false;
+    let pos = 50, dragging = false, anim = 0, touched = false;
 
     const set = v => {
       pos = clamp(v, 0, 100);
       box.style.setProperty('--pos', pos.toFixed(2));
       if (range) range.value = pos;
     };
-    const fromEvent = e => {
-      const r = box.getBoundingClientRect();
-      set((e.clientX - r.left) / r.width * 100);
+    const stop = () => cancelAnimationFrame(anim);
+    const touch = () => {
+      if (!touched) { touched = true; box.classList.add('is-touched'); }
+      stop();
     };
-    const interrupt = () => { touched = true; cancelAnimationFrame(sweep); };
+    const pct = e => {
+      const r = box.getBoundingClientRect();
+      return (e.clientX - r.left) / r.width * 100;
+    };
+    const glide = (to, dur) => {
+      stop();
+      if (reduced) return set(to);
+      const from = pos, t0 = performance.now();
+      const frame = now => {
+        const p = Math.min(1, (now - t0) / dur);
+        set(from + (to - from) * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) anim = requestAnimationFrame(frame);
+      };
+      anim = requestAnimationFrame(frame);
+    };
 
     box.addEventListener('pointerdown', e => {
-      interrupt(); dragging = true;
+      touch(); dragging = true;
       box.setPointerCapture(e.pointerId);
       box.classList.add('is-dragging');
-      fromEvent(e);
+      glide(pct(e), 260);
     });
-    box.addEventListener('pointermove', e => { if (dragging) fromEvent(e); });
+    box.addEventListener('pointermove', e => { if (dragging) { stop(); set(pct(e)); } });
     const end = () => { dragging = false; box.classList.remove('is-dragging'); };
     box.addEventListener('pointerup', end);
     box.addEventListener('pointercancel', end);
     if (range) {
-      range.addEventListener('input', () => { interrupt(); set(Number(range.value)); });
+      range.addEventListener('input', () => { touch(); set(Number(range.value)); });
     }
 
     // one small sweep the first time it scrolls into view, as a hint that it's draggable
@@ -70,9 +87,9 @@
         const frame = now => {
           const p = Math.min(1, (now - t0) / dur);
           set(50 + Math.sin(p * Math.PI * 2) * 28 * (1 - p * 0.3));
-          if (p < 1 && !touched) sweep = requestAnimationFrame(frame); else if (!touched) set(50);
+          if (p < 1 && !touched) anim = requestAnimationFrame(frame); else if (!touched) set(50);
         };
-        sweep = requestAnimationFrame(frame);
+        anim = requestAnimationFrame(frame);
       }, { threshold: [0.6] });
       io.observe(box);
     }
