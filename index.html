@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="animations.css">
     <link rel="stylesheet" href="boot.css">
     <link rel="stylesheet" href="features.css">
+    <link rel="stylesheet" href="motion.css">
 </head>
 <body>
 
@@ -75,8 +76,8 @@
                 <div class="nav__socials">
                     <a href="https://github.com/sajidrahii" target="_blank" title="GitHub" aria-label="GitHub profile"><img src="assets/social-icons/github.png" alt="" loading="lazy"></a>
                     <a href="https://www.linkedin.com/in/sajid-rahi/" target="_blank" title="LinkedIn" aria-label="LinkedIn profile"><img src="assets/social-icons/linkedin.png" alt="" loading="lazy"></a>
-                    <a href="https://www.facebook.com/sajidahmedrahii" target="_blank" title="Facebook" aria-label="Facebook profile"><img src="assets/social-icons/facebook.png" alt="" loading="lazy"></a>
-                    <a href="https://www.instagram.com/sajid._.rahi/" target="_blank" title="Instagram" aria-label="Instagram profile"><img src="assets/social-icons/instagram.png" alt="" loading="lazy"></a>
+                    <a href="https://www.facebook.com/engsajidrahi" target="_blank" title="Facebook" aria-label="Facebook profile"><img src="assets/social-icons/facebook.png" alt="" loading="lazy"></a>
+                    <a href="https://www.instagram.com/eng.sajidrahi/" target="_blank" title="Instagram" aria-label="Instagram profile"><img src="assets/social-icons/instagram.png" alt="" loading="lazy"></a>
                     <a href="https://x.com/SajidAh05565570" target="_blank" title="X / Twitter" aria-label="X profile"><img src="assets/social-icons/twitter.png" alt="" loading="lazy"></a>
                 </div>
             </div>
@@ -123,7 +124,7 @@
                     </p>
 
                     <div class="hero__actions">
-                        <a href="#works" class="btn btn--primary" target="_blank">View Projects</a>
+                        <a href="#works" class="btn btn--primary">View Projects</a>
                         <button class="btn btn--ghost" id="cv-download">
                             <span>Download CV</span>
                             <img src="assets/icons/download.png" alt="CV" aria-hidden="true">
@@ -247,16 +248,19 @@
                 </div>
             </div>
 
-            <div class="project-board">
+            <div class="project-board" data-filter data-count="projectCount">
+                <!-- Filter chips are built automatically from each card's data-cat="..." (space-separated for several).
+                     New category? Just use a new word in data-cat. Optional label: edit CATS in projects.js. -->
+                <div class="filter-bar"></div>
                 <!--
-                    TO ADD A PROJECT: copy one whole <article class="card project"> block below
+                    TO ADD A PROJECT: copy one whole <article class="card project" data-cat="..."> block below
                     and paste it at the end of the list. The board is 2 columns; the 5th card
                     onwards starts a new row and the board scrolls on its own.
                     Replace the "no preview" box by un-commenting the <img> line.
                 -->
                 <div class="project-scroller" tabindex="0" role="region" aria-label="Projects, scrollable list">
 
-                    <article class="card project">
+                    <article class="card project" data-cat="hardware ml">
                         <div class="project__media">
                             <!-- <img src="assets/projects/your-image.jpg" alt="Describe the image" loading="lazy"> -->
                              <img src="assets/projects/Luscus.JPG" alt="Luscus project preview" loading="lazy">
@@ -274,10 +278,10 @@
                     </article>
 
                     <!-- ESP32S3CameraStream -->
-                    <article class="card project">
+                    <article class="card project" data-cat="hardware software">
                         <div class="project__media">
                             <!-- <img src="assets/projects/your-image.jpg" alt="Describe the image" loading="lazy"> -->
-                             <img src="assets/projects/ESP32S3CameraStream.jpg" alt="Luscus project preview" loading="lazy">
+                             <img src="assets/projects/ESP32S3CameraStream.jpg" alt="ESP32S3CameraStream project preview" loading="lazy">
                             <span class="project__badge" aria-hidden="true">Case study</span>
                         </div>
                         <div class="project__body">
@@ -291,7 +295,25 @@
                     </article>
 
 
-                    <article class="card project">
+
+                </div>
+            </div>
+        
+            <!-- VIBE CODED: fun projects, kept apart from academic work. Copy an <article> into this scroller to add one. -->
+            <div class="subsection" id="vibe">
+                <div class="subhead">
+                    <p class="eyebrow eyebrow--violet"><span class="eyebrow__dot" aria-hidden="true"></span>$ ls ./vibe-coded</p>
+                    <div class="section-header__row">
+                        <h3 class="subhead__title">Vibe Coded</h3>
+                        <span class="project-count" id="vibeCount"></span>
+                    </div>
+                    <p class="body-copy">Fun experiments built with AI pair-programming, separate from my academic work.</p>
+                </div>
+
+                <div class="project-board board--vibe" data-count="vibeCount">
+                    <div class="project-scroller" tabindex="0" role="region" aria-label="Vibe coded projects, scrollable list">
+
+                        <article class="card project" data-cat="vibe">
                         <div class="project__media">
                             <!-- <img src="assets/projects/your-image.jpg" alt="Describe the image" loading="lazy"> -->
                              <img src="assets/projects/Gontobbohin.jpg" alt="Gontobbohin project preview" loading="lazy">
@@ -308,6 +330,24 @@
                         </div>
                     </article>
 
+                    <article class="card project" data-cat="vibe">
+                        <div class="project__media">
+                            <!-- <img src="assets/projects/your-image.jpg" alt="Describe the image" loading="lazy"> -->
+                             <img src="assets/projects/cv-maker.jpg" alt="CV maker project preview" loading="lazy">
+                            <span class="project__badge" aria-hidden="true">Case study</span>
+                        </div>
+                        <div class="project__body">
+                            <h3><button type="button" class="case-open" data-case="cvmaker" aria-haspopup="dialog">CV-Maker</button></h3>
+                            <p class="body-copy project__desc">Make your ATS friendly CV with CV-Maker</p>
+                            <ul class="tag-list"><li>Claude</li></ul>
+                            <div class="project__links">
+                                <!-- <a class="view-cert" href="javascript:void(0);" target="_blank" rel="noopener">Source code<img src="assets/icons/arrow_outward.png" alt="" aria-hidden="true"></a> -->
+                                <a class="view-cert" href="https://sajidrahii.github.io/cv-maker/" target="_blank" rel="noopener">Live demo <img src="assets/icons/arrow_outward.png" alt="" aria-hidden="true"></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    </div>
                 </div>
             </div>
         </section>
@@ -605,18 +645,18 @@
             </div>
 
             <div class="nav__socials contact__socials">
-                <a href="#" title="GitHub" aria-label="GitHub profile"><img src="assets/social-icons/github.png" alt="" loading="lazy"></a>
-                <a href="#" title="LinkedIn" aria-label="LinkedIn profile"><img src="assets/social-icons/linkedin.png" alt="" loading="lazy"></a>
-                <a href="#" title="Facebook" aria-label="Facebook profile"><img src="assets/social-icons/facebook.png" alt="" loading="lazy"></a>
-                <a href="#" title="Instagram" aria-label="Instagram profile"><img src="assets/social-icons/instagram.png" alt="" loading="lazy"></a>
-                <a href="#" title="X / Twitter" aria-label="X profile"><img src="assets/social-icons/twitter.png" alt="" loading="lazy"></a>
+                <a href="https://github.com/sajidrahii" title="GitHub" aria-label="GitHub profile" target="_blank"><img src="assets/social-icons/github.png" alt="" loading="lazy"></a>
+                <a href="https://www.linkedin.com/in/sajid-rahi/" title="LinkedIn" aria-label="LinkedIn profile" target="_blank"><img src="assets/social-icons/linkedin.png" alt="" loading="lazy"></a>
+                <a href="https://www.facebook.com/engsajidrahi" title="Facebook" aria-label="Facebook profile" target="_blank"><img src="assets/social-icons/facebook.png" alt="" loading="lazy"></a>
+                <a href="https://www.instagram.com/eng.sajidrahi/" title="Instagram" aria-label="Instagram profile" target="_blank"><img src="assets/social-icons/instagram.png" alt="" loading="lazy"></a>
+                <a href="https://x.com/SajidAh05565570" title="X / Twitter" aria-label="X profile" target="_blank"><img src="assets/social-icons/twitter.png" alt="" loading="lazy"></a>
             </div>
         </section>
 
     </main>
 
     <footer class="site-footer">
-        <p>© 2026 Sajid Rahi. Built line by line.</p>
+        <p>© 2026 Sajid Ahmed Rahi, Dept. of IRE, UFTB</p>
     </footer>
 
     <div class="dock" role="group" aria-label="Sound settings">

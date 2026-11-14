@@ -54,7 +54,7 @@
     },
 
     esp32s3camerastream: {
-      title: 'Luscus',
+      title: 'ESP32S3CameraStream',
       summary:
         'The ESP32-S3-N16R8 CAM Dev Board is a powerful microcontroller module with built-in Wi-Fi, Bluetooth, and camera support. It features a dual-core processor, 16MB Flash, and 8MB PSRAM for advanced AI and IoT applications. With its onboard USB, OV3660 camera interface, and rich GPIO support, it’s ideal for machine vision and smart automation. This guide will help you set up and start using the board quickly.',
 
@@ -81,6 +81,14 @@
       summary:
         'A creative concept that turns Bangladesh’s 64 districts into an interactive journey you can explore in the browser.',
       embed: { src: 'https://sajidrahii.github.io/gontobbohin/', label: 'Load live preview' },
+      // learned: ['Add what you learned here…'],
+    },
+
+    cvmaker: {
+      title: 'Gontobbohin',
+      summary:
+        'Make your ATS friendly CV with CV-Maker',
+      embed: { src: 'https://sajidrahii.github.io/cv-maker/', label: 'Load live preview' },
       // learned: ['Add what you learned here…'],
     },
   };

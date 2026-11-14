@@ -1,12 +1,30 @@
+/* Springy keyframes: each one overshoots, dips back, then settles. */
 @keyframes pop{
-    0%{ opacity: 0; scale: .85; transform: translateY(12px); }
-    60%{ opacity: 1; scale: 1.03; transform: translateY(0); }
+    0%{ opacity: 0; scale: .8; transform: translateY(18px); }
+    50%{ opacity: 1; scale: 1.07; transform: translateY(-4px); }
+    72%{ scale: .97; transform: translateY(1px); }
     100%{ scale: 1; transform: translateY(0); }
 }
 
 @keyframes bounce{
-    0%{ scale: .9; opacity: 0; }
-    60%{ scale: 1.03; opacity: 1; }
+    0%{ scale: .85; opacity: 0; }
+    50%{ scale: 1.07; opacity: 1; }
+    72%{ scale: .97; }
+    100%{ scale: 1; }
+}
+
+/* project cards entering after a category filter (uses translate/scale so hover's transform stays free) */
+@keyframes card-pop{
+    0%{ opacity: 0; scale: .8; translate: 0 24px; }
+    55%{ opacity: 1; scale: 1.04; translate: 0 -5px; }
+    78%{ scale: .99; translate: 0 1px; }
+    100%{ scale: 1; translate: 0 0; }
+}
+
+@keyframes chip-pop{
+    0%{ scale: 1; }
+    40%{ scale: 1.14; }
+    70%{ scale: .96; }
     100%{ scale: 1; }
 }
 
