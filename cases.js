@@ -27,7 +27,7 @@
         'a YOLO model finds objects in each frame, and the result decides how the motors drive.',
 
       // drop your recording at this path (mp4). Until then a placeholder is shown.
-      video: { src: 'assets/projects/luscus-demo.mp4', poster: 'assets/projects/Luscus.JPG' },
+      // video: { src: 'assets/projects/luscus-demo.mp4', poster: 'assets/projects/Luscus.JPG' },
 
       flow: [
         { icon: 'cam', name: 'ESP32-CAM', sub: 'Capture', kind: 'Edge device',
@@ -50,6 +50,29 @@
         'The ESP32-CAM is only the eyes. Detection runs off-board, and the robot just receives simple commands.',
         'A stop-by-default rule matters: no fresh frame or no confident detection should never mean "keep driving".',
         'Testing each stage alone first (camera, network, model, motors) made the full system far easier to debug.',
+      ],
+    },
+
+    esp32s3camerastream: {
+      title: 'Luscus',
+      summary:
+        'The ESP32-S3-N16R8 CAM Dev Board is a powerful microcontroller module with built-in Wi-Fi, Bluetooth, and camera support. It features a dual-core processor, 16MB Flash, and 8MB PSRAM for advanced AI and IoT applications. With its onboard USB, OV3660 camera interface, and rich GPIO support, it’s ideal for machine vision and smart automation. This guide will help you set up and start using the board quickly.',
+
+      // drop your recording at this path (mp4). Until then a placeholder is shown.
+      // video: { src: 'assets/projects/luscus-demo.mp4', poster: 'assets/projects/Luscus.JPG' },
+
+      flow: [
+        { icon: 'cam', name: 'ESP32-CAM', sub: 'Capture', kind: 'Edge device',
+          text: 'Grabs frames from the onboard camera and serves them as a JPEG stream. Resolution and quality are kept modest so the stream stays smooth.',
+          io: ['In: the scene ahead', 'Out: JPEG frames'] },
+        { icon: 'wifi', name: 'Wi-Fi', sub: 'Transport', kind: 'Network',
+          text: 'Carries frames from the board to the machine running the model, and carries steering commands back. Latency here decides how fresh each decision is.',
+          io: ['In: JPEG frames', 'Out: frames to the model, commands to the robot'] },
+      ],
+
+      // DRAFT — replace these with your own lessons.
+      learned: [
+        'How to Engage in a Public Repository for Open-Source Contributions'
       ],
     },
 
